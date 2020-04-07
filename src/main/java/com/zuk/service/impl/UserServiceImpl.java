@@ -15,6 +15,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of {@link UserService} interface.
+ * Wrapper for {@link UserRepository} + business logic.
+ *
+ * @author Eugene Suleimanov
+ * @version 1.0
+ */
+
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
