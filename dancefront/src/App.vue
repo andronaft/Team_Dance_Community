@@ -1,19 +1,34 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <navbar/>
     <router-view/>
   </div>
 </template>
 
+<script>
+// @ is an alias to /src
+import Navbar from '@/components/Navbar.vue'
+
+export default {
+  name: 'Home',
+  components: {
+    Navbar
+  }
+}
+</script>
+
 <style lang="scss">
+body {
+  background: #122C34;
+  padding: 0;
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+
   color: #2c3e50;
 }
 
