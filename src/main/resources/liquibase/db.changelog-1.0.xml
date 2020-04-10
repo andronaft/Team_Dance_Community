@@ -108,4 +108,40 @@
         </insert>
     </changeSet>
 
+    <changeSet id="1.0.6" author="zuk">
+        <createTable tableName="user_profile">
+
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="mobile" type="VARCHAR(20)">
+                <constraints unique="true"/>
+            </column>
+
+            <column name="social" type="VARCHAR(100)">
+            </column>
+
+            <column name="img_url" type="VARCHAR(100)">
+            </column>
+
+            <column name="rating" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="level" type="VARCHAR(20)">
+            </column>
+
+            <column name="created" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+
 </databaseChangeLog>

@@ -19,12 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * REST controller for authentication requests (login, logout, register, etc.)
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
+
 
 @RestController
 @RequestMapping(value = "/api/v1/auth/")
