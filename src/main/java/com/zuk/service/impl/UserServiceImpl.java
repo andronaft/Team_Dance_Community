@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         User result = userRepository.findByUsername(username);
-        log.info("IN findByUsername - user: {} found by username: {}", result, username);
+        log.info("IN findByUsername - user: {} found by username: {}", result.getUsername(), username);
         return result;
     }
 
@@ -71,13 +71,13 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        log.info("IN findById - user: {} found by id: {}", result);
+        log.info("IN findById - user: {} found by id: {}", result.getUsername(),result.getUsername());
         return result;
     }
 
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
-        log.info("IN delete - user with id: {} successfully deleted");
+        log.info("IN delete - user with id: {} successfully deleted",id);
     }
 }

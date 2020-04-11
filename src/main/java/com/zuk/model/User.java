@@ -1,6 +1,7 @@
 package com.zuk.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +14,9 @@ import java.util.List;
 
 
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "users")
+@Table(schema = "tdcbd" ,name = "users")
 @Data
 public class User extends BaseEntity {
 
@@ -34,7 +36,7 @@ public class User extends BaseEntity {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
+    @JoinTable(schema = "tdcbd" ,name = "user_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
