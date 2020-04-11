@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -25,11 +26,11 @@ public class BaseEntity {
 
     @CreatedDate
     @Column(name = "created")
-    private Date created;
+    private Timestamp created;
 
     @LastModifiedDate
     @Column(name = "updated")
-    private Date updated;
+    private Timestamp updated;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
