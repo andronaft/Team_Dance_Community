@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "roles")
+@Table(schema = "tdcbd" ,name = "roles")
 @Data
 public class Role extends BaseEntity {
 
