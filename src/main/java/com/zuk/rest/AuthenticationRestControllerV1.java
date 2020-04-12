@@ -1,6 +1,7 @@
 package com.zuk.rest;
 
 import com.zuk.dto.AuthenticationRequestDto;
+import com.zuk.dto.RegisterUserDto;
 import com.zuk.model.User;
 import com.zuk.security.JwtTokenProvider;
 import com.zuk.service.UserService;
@@ -53,7 +54,34 @@ public class AuthenticationRestControllerV1 {
 
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
+            response.put("user_id",user.getId());
+            response.put("role",user.getRoles().size());
             response.put("token", token);
+
+            return ResponseEntity.ok(response);
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid username or password");
+        }
+    }
+
+    @PostMapping("register")
+    public ResponseEntity register(@RequestBody RegisterUserDto userDto) {
+        try {
+            System.out.println(userDto.toString());
+            String username = userDto.getUsername();
+            User user = userService.register(userDto.toUser());
+
+            if (user == null) {
+                throw new UsernameNotFoundException("User with username: " + username + " can't register");
+            }
+            Map<Object, Object> response = new HashMap<>();
+            response.put("username", username);
+            response.put("user_id",user.getId());
+            response.put("email",user.getEmail());
+            response.put("firstName",user.getFirstName());
+            response.put("lastName",user.getLastName());
+            response.put("role",user.getRoles().size());
+
 
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
