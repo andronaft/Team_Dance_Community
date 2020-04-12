@@ -55,7 +55,7 @@ public class AuthenticationRestControllerV1 {
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
             response.put("user_id",user.getId());
-            response.put("role",user.getRoles().size());
+            response.put("role",jwtTokenProvider.getRoleNames(user.getRoles()));
             response.put("token", token);
 
             return ResponseEntity.ok(response);
