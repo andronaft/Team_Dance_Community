@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
         User registeredUser = userRepository.save(user);
 
-        log.info("IN register - user: {} successfully registered", registeredUser);
+        log.info("IN register - user: {} successfully registered", registeredUser.getUsername());
 
         return registeredUser;
     }
