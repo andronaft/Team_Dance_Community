@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,7 +82,7 @@ public class AuthenticationRestControllerV1 {
             response.put("email",user.getEmail());
             response.put("firstName",user.getFirstName());
             response.put("lastName",user.getLastName());
-            response.put("role",user.getRoles().size());
+            //response.put("role",userresult.getRoles().size());
 
 
             return ResponseEntity.ok(response);

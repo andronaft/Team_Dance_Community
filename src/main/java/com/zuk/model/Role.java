@@ -1,17 +1,15 @@
 package com.zuk.model;
 
 import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
 @Table(schema = "tdcbd" ,name = "roles")
+@EntityListeners(AuditingEntityListener.class)
 @Data
 public class Role extends BaseEntity {
 

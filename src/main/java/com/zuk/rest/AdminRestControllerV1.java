@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api/v1/admin/")
 public class AdminRestControllerV1 {
@@ -22,7 +25,7 @@ public class AdminRestControllerV1 {
         this.userService = userService;
     }
 
-    @GetMapping(value = "users/{id}")
+    @GetMapping(value = "user/{id}")
     public ResponseEntity<AdminUserDto> getUserById(@PathVariable(name = "id") Long id) {
         User user = userService.findById(id);
 
@@ -31,6 +34,19 @@ public class AdminRestControllerV1 {
         }
 
         AdminUserDto result = AdminUserDto.fromUser(user);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "users/")
+    public ResponseEntity<List<AdminUserDto>> getUser() {
+        List<User> userList = userService.getAll();
+
+        if (userList.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        ArrayList<AdminUserDto> result = AdminUserDto.fromArrayUser(userList);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

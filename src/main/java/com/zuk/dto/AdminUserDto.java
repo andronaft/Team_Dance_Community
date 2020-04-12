@@ -5,6 +5,9 @@ import com.zuk.model.Status;
 import com.zuk.model.User;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AdminUserDto {
@@ -35,5 +38,12 @@ public class AdminUserDto {
         adminUserDto.setEmail(user.getEmail());
         adminUserDto.setStatus(user.getStatus().name());
         return adminUserDto;
+    }
+    public static ArrayList<AdminUserDto> fromArrayUser(List<User> userList){
+        ArrayList<AdminUserDto>  adminUserDtoArrayList = new ArrayList<>();
+        for (User user:userList){
+            adminUserDtoArrayList.add(fromUser(user));
+        }
+        return adminUserDtoArrayList;
     }
 }
