@@ -35,7 +35,7 @@ public class CORsFilter implements Filter, WebMvcConfigurer {
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Expose-Headers", "Authorization");
         response.addHeader("Access-Control-Expose-Headers", "responseType");
-        response.addHeader("Access-Control-Expose-Headers", "observe");пш
+        response.addHeader("Access-Control-Expose-Headers", "observe");
         if (!(((HttpServletRequest) req).getMethod().equalsIgnoreCase("OPTIONS"))) {
             try {
                 chain.doFilter(req, res);
