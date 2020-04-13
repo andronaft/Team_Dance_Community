@@ -1,4 +1,4 @@
-package com.zuk.rest;
+package com.zuk.rest.admin;
 
 import com.zuk.dto.admin.AdminUserDto;
 import com.zuk.model.User;
@@ -25,7 +25,7 @@ public class AdminRestControllerV1 {
         this.userService = userService;
     }
 
-    @GetMapping(value = "user/{id}")
+    @GetMapping(value = "users/{id}")
     public ResponseEntity<AdminUserDto> getUserById(@PathVariable(name = "id") Long id) {
         User user = userService.findById(id);
 

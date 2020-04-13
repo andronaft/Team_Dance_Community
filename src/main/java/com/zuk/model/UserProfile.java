@@ -35,10 +35,10 @@ public class UserProfile {
     private String imgUrl;//TODO htink about url and img
 
     @Column(name = "rating")
-    private int rating;
+    private Integer rating;
 
     @Column(name = "level")
-    private int level;
+    private Integer level;
 
     @CreatedDate
     @Column(name = "created")

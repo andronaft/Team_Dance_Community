@@ -9,4 +9,6 @@ public interface UserProfileService {
     UserProfile register(UserProfile userProfile);
     UserProfile update(UserProfile userProfile);
     List<UserProfile> getAll();
+
+    Boolean checkMobile(String mobile);
 }
