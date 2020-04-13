@@ -25,9 +25,11 @@ public class UserProfileDto {
         return userProfile;
     }
 
-    public static UserProfileDto fromUserProfile(UserProfile userProfile){
+    public static UserProfileDto fromUserProfile(UserProfile userProfile){//TODO nullpoint
 
-        UserProfileDto userProfileDto = new UserProfileDto();
+
+    UserProfileDto userProfileDto = new UserProfileDto();
+    try {
         userProfileDto.setUserId(userProfile.getUserId());
         userProfileDto.setMobile(userProfile.getMobile());
         userProfileDto.setSocial(userProfile.getSocial());
@@ -35,6 +37,9 @@ public class UserProfileDto {
         userProfileDto.setImgUrl(userProfile.getImgUrl());
         userProfileDto.setLevel(userProfile.getLevel());
         userProfileDto.setRating(userProfile.getRating());
+    }catch (Exception e){
+
+    }
         return userProfileDto;
 
     }

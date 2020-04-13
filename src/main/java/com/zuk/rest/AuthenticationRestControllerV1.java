@@ -2,6 +2,8 @@ package com.zuk.rest;
 
 import com.zuk.dto.user.AuthenticationRequestDto;
 import com.zuk.dto.user.RegisterUserDto;
+import com.zuk.dto.user.check.CheckEmailDto;
+import com.zuk.dto.user.check.CheckUsernameDto;
 import com.zuk.model.User;
 import com.zuk.model.UserProfile;
 import com.zuk.security.JwtTokenProvider;
@@ -44,17 +46,21 @@ public class AuthenticationRestControllerV1 {
 
     @PostMapping("login")
     public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {
-
+        try {
             String username = requestDto.getUsername();
             User user = userService.findByUsername(username);
             System.out.println(user == null);
 
             if (user == null) {
-                System.out.println();
-                return (ResponseEntity) ResponseEntity.badRequest();
-                 //throw new UsernameNotFoundException("User with username: " + username + " not found");
+                System.out.println("return");
+                //return (ResponseEntity) ResponseEntity.badRequest();
+               //return ResponseEntity.status(406).build();
+                throw new BadCredentialsException("Invalid username or password");
+               //throw new BadCredentialsException
+               //UsernameNotFoundException("User with username: " + username + " not found");
             }
-            try {
+
+                System.out.println("try");
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
 
 
@@ -68,6 +74,8 @@ public class AuthenticationRestControllerV1 {
 
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
+               // throw  new UsernameNotFoundException("User  not found");
+                //
             throw new BadCredentialsException("Invalid username or password");
         }
     }
@@ -97,7 +105,22 @@ public class AuthenticationRestControllerV1 {
 
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
+            //throw  new UsernameNotFoundException("User  not found");
             throw new BadCredentialsException("Invalid username or password");
         }
+    }
+
+    @PostMapping("checkUsername")
+    public ResponseEntity checkUsername(@RequestBody CheckUsernameDto checkUsernameDto){
+        Map<Object, Object> response = new HashMap<>();
+        response.put("isExist",userService.checkUsername(checkUsernameDto.getUsername()));
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("checkEmail")
+    public ResponseEntity checkEmail(@RequestBody CheckEmailDto checkEmailDto){
+        Map<Object, Object> response = new HashMap<>();
+        response.put("isExist",userService.checkEmail(checkEmailDto.getEmail()));
+        return ResponseEntity.ok(response);
     }
 }

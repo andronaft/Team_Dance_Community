@@ -14,5 +14,9 @@ public interface UserService {
 
     User findById(Long id);
 
+    Boolean checkUsername(String username);
+
+    Boolean checkEmail(String email);
+
     void delete(Long id);
 }
