@@ -1,12 +1,14 @@
 package com.zuk.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.List;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(schema = "tdcbd" ,name = "roles")
 @EntityListeners(AuditingEntityListener.class)

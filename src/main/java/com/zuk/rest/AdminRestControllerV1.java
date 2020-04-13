@@ -1,6 +1,6 @@
 package com.zuk.rest;
 
-import com.zuk.dto.AdminUserDto;
+import com.zuk.dto.admin.AdminUserDto;
 import com.zuk.model.User;
 import com.zuk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

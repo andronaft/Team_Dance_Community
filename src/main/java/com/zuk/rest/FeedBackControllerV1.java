@@ -1,7 +1,6 @@
 package com.zuk.rest;
 
 import com.zuk.dto.FeedBackDto;
-import com.zuk.dto.UserDto;
 import com.zuk.model.Feedback;
 import com.zuk.service.impl.FeedBackServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
