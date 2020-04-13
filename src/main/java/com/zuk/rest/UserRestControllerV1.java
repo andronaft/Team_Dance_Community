@@ -1,7 +1,7 @@
 package com.zuk.rest;
 
 import com.zuk.dto.user.UserDto;
-import com.zuk.dto.user.UserProfileDto;
+import com.zuk.dto.user.profile.UserProfileDto;
 import com.zuk.model.User;
 import com.zuk.model.UserProfile;
 import com.zuk.service.UserProfileService;

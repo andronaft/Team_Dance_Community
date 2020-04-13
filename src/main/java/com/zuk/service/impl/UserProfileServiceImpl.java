@@ -43,4 +43,10 @@ public class UserProfileServiceImpl implements UserProfileService {
     public List<UserProfile> getAll() {
         return userProfileRepository.findAll();
     }
+
+    @Override
+    public Boolean checkMobile(String mobile) {
+        System.out.println(mobile);
+        return (userProfileRepository.findByMobile(mobile) != null);
+    }
 }

@@ -1,4 +1,4 @@
-package com.zuk.dto.user;
+package com.zuk.dto.user.profile;
 
 import com.zuk.model.UserProfile;
 import lombok.Data;
