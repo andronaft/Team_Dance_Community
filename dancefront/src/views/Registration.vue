@@ -6,15 +6,27 @@
         <main>
           <h3>Registration</h3>
            <div class="login-form">
- <form class="login" @submit.prevent="logMeIn">
-     <h1>Registration</h1>
-     <label>Username</label>
-     <input required v-model="username" type="username" placeholder="Name"/>
-     <label>Password</label>
-     <input required v-model="password" type="password" placeholder="Password"/>
-     <hr/>
-     <button type="submit">Login</button>
-   </form>
+ <form @submit.prevent="register">
+      <label for="name">Name</label>
+      <div>
+          <input id="name" type="text" v-model="name" required autofocus>
+      </div>
+      <label for="email" >E-Mail Address</label>
+      <div>
+          <input id="email" type="email" v-model="email" required>
+      </div>
+      <label for="password">Password</label>
+      <div>
+          <input id="password" type="password" v-model="password" required>
+      </div>
+      <label for="password-confirm">Confirm Password</label>
+      <div>
+          <input id="password-confirm" type="password" v-model="password_confirmation" required>
+      </div>
+      <div>
+          <button type="submit">Register</button>
+      </div>
+    </form>
 
    <button @click="logout">logout</button>
            </div>
@@ -39,8 +51,12 @@ export default {
   name: 'Home',
   components: { VueperSlides, VueperSlide, Timetable },
   data: () => ({
-    username: 'testuser',
-    password: '13371337'
+     name : "",
+        email : "",
+        password : "",
+        password_confirmation : "",
+        is_admin : null
+
   }),
   methods: {
     logout: function () {
@@ -49,11 +65,15 @@ export default {
           this.$router.push('/login')
         })
       },
-      logMeIn() {
+      register() {
           console.log("Ligmein")
-          let username = this.username;
-          let password = this.password
-          this.$store.dispatch('login', { username, password })
+          let data = {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          is_admin: this.is_admin
+        }
+          this.$store.dispatch('register', data)
        .then(() => this.$router.push('/'))
        .catch(err => console.log(err))
 
