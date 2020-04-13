@@ -1,4 +1,4 @@
-package com.zuk.dto;
+package com.zuk.dto.admin;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zuk.model.Status;

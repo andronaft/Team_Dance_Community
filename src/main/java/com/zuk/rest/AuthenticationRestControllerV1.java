@@ -1,9 +1,11 @@
 package com.zuk.rest;
 
-import com.zuk.dto.AuthenticationRequestDto;
-import com.zuk.dto.RegisterUserDto;
+import com.zuk.dto.user.AuthenticationRequestDto;
+import com.zuk.dto.user.RegisterUserDto;
 import com.zuk.model.User;
+import com.zuk.model.UserProfile;
 import com.zuk.security.JwtTokenProvider;
+import com.zuk.service.UserProfileService;
 import com.zuk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +14,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,23 +32,31 @@ public class AuthenticationRestControllerV1 {
 
     private final UserService userService;
 
+    private final UserProfileService userProfileService;
+
     @Autowired
-    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService) {
+    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, UserProfileService userProfileService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
+        this.userProfileService = userProfileService;
     }
 
     @PostMapping("login")
     public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {
-        try {
+
             String username = requestDto.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
             User user = userService.findByUsername(username);
+            System.out.println(user == null);
 
             if (user == null) {
-                throw new UsernameNotFoundException("User with username: " + username + " not found");
+                System.out.println();
+                return (ResponseEntity) ResponseEntity.badRequest();
+                 //throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
+            try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
+
 
             String token = jwtTokenProvider.createToken(username, user.getRoles());
 
@@ -76,6 +82,10 @@ public class AuthenticationRestControllerV1 {
             if (user == null) {
                 throw new UsernameNotFoundException("User with username: " + username + " can't register");
             }
+            UserProfile userProfile = new UserProfile();
+            userProfile.setUserId(user.getId());
+            userProfileService.update(userProfile);
+
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
             response.put("user_id",user.getId());
