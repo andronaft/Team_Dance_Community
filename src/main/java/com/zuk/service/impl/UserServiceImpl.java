@@ -76,6 +76,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Boolean checkUsername(String username) {
+        return userRepository.findByUsername(username) != null;
+    }
+
+    @Override
+    public Boolean checkEmail(String email) {
+        return userRepository.findByEmail(email) != null;
+    }
+
+    @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
         log.info("IN delete - user with id: {} successfully deleted",id);
