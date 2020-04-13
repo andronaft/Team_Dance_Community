@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.zuk.model.Status.NOT_ACTIVE;
+
 
 @Service
 @Slf4j
@@ -24,6 +26,12 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public UserProfile findById(long id) {
         return userProfileRepository.getOne(id);
+    }
+
+    @Override
+    public UserProfile register(UserProfile userProfile) {
+        userProfile.setStatus(NOT_ACTIVE);
+        return userProfileRepository.save(userProfile);
     }
 
     @Override
