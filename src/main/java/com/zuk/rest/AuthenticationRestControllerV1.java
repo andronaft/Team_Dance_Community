@@ -78,13 +78,13 @@ public class AuthenticationRestControllerV1 {
             System.out.println(userDto.toString());
             String username = userDto.getUsername();
             User user = userService.register(userDto.toUser());
-
+            System.out.println(user.getUsername().toString());
             if (user == null) {
                 throw new UsernameNotFoundException("User with username: " + username + " can't register");
             }
             UserProfile userProfile = new UserProfile();
             userProfile.setUserId(user.getId());
-            userProfileService.update(userProfile);
+            userProfileService.register(userProfile);
 
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
