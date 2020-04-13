@@ -3,6 +3,7 @@
       <router-link to="/">Главная</router-link>
       <router-link to="/">Новости</router-link>
       <router-link to="/">Расписание</router-link>
+      <router-link to="/login">Авторизация</router-link>
   </nav>
 </template>
 
@@ -19,16 +20,17 @@ export default {
 <style scoped lang="scss">
     nav {
         display: flex;
+        background: #11647E;
     }
 
     a {
-    padding: 10px;
+    padding: 20px;
     text-decoration: none;
     font-weight: bold;
-    color: #2c3e50;
+    color: #fff;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #fff;
     }
   }
 </style>

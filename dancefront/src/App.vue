@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <navbar/>
+    <div v-if="isLoggedIn" class="alert alert-success" role="alert">You are logged in!</div>
     <router-view/>
   </div>
 </template>
@@ -8,18 +9,22 @@
 <script>
 // @ is an alias to /src
 import Navbar from '@/components/Navbar.vue'
+import { mapGetters } from "vuex";
 
 export default {
   name: 'Home',
   components: {
     Navbar
+  },
+  computed: {
+    isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
   }
 }
 </script>
 
 <style lang="scss">
 body {
-  background: #122C34;
+  background: #213751;
   padding: 0;
   margin: 0;
 }
@@ -27,9 +32,9 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
 
-  color: #2c3e50;
+  color: #fff;
 }
 
 #nav {
