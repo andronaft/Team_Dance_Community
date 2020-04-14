@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProfileDto {
+    private String username;
     private long userId;
     private String mobile;
     private String social;
