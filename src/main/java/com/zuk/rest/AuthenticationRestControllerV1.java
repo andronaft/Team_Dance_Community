@@ -3,6 +3,7 @@ package com.zuk.rest;
 import com.zuk.dto.auth.AuthenticationRequestDto;
 import com.zuk.dto.auth.RegisterUserDto;
 import com.zuk.dto.user.check.CheckEmailDto;
+import com.zuk.dto.user.check.CheckMobileDto;
 import com.zuk.dto.user.check.CheckUsernameDto;
 import com.zuk.model.User;
 import com.zuk.model.UserProfile;
@@ -60,6 +61,7 @@ public class AuthenticationRestControllerV1 {
             }
 
                 System.out.println("try");
+
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
 
 
@@ -132,6 +134,13 @@ public class AuthenticationRestControllerV1 {
     public ResponseEntity checkEmail(@RequestBody CheckEmailDto checkEmailDto){
         Map<Object, Object> response = new HashMap<>();
         response.put("isExist",userService.checkEmail(checkEmailDto.getEmail()));
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("checkMobile")
+    public ResponseEntity checkMobile(@RequestBody CheckMobileDto checkMobileDto){
+        Map<Object, Object> response = new HashMap<>();
+        response.put("isExist",userProfileService.checkMobile(checkMobileDto.getMobile()));
         return ResponseEntity.ok(response);
     }
 }

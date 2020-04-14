@@ -4,15 +4,16 @@ import com.zuk.dto.user.UserDto;
 import com.zuk.dto.user.profile.UserProfileDto;
 import com.zuk.model.User;
 import com.zuk.model.UserProfile;
+import com.zuk.security.JwtTokenProvider;
 import com.zuk.service.UserProfileService;
 import com.zuk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -20,11 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserRestControllerV1 {
     private final UserService userService;
     private final UserProfileService userProfileService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public UserRestControllerV1(UserService userService, UserProfileService userProfileService) {
+    public UserRestControllerV1(UserService userService, UserProfileService userProfileService, JwtTokenProvider jwtTokenProvider) {
         this.userService = userService;
         this.userProfileService = userProfileService;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @GetMapping(value = "{id}")
@@ -41,17 +44,33 @@ public class UserRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "getProfile/{id}")
-    public ResponseEntity<UserProfileDto> getUserProfileById(@PathVariable(name = "id") long userId){
-        UserProfile userProfile = userProfileService.findById(userId);
-        //System.out.println(id);
+    @PostMapping(value = "getProfile/")
+    public ResponseEntity getUserProfileById(@RequestBody UserDto userDto,@RequestHeader("Authorization") String token){
 
-        if(userProfile == null){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        System.out.println(jwtTokenProvider.getUsername(token.substring(7)));
+        if(jwtTokenProvider.getUsername(token.substring(7)).equals(userDto.getUsername())){
+            System.out.println("1");
+            User user = userService.findByUsername(userDto.getUsername());
+            System.out.println("2");
+            UserProfile userProfile = userProfileService.findById(user.getId());
+            if(userProfile == null){
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
+            System.out.println("3");
+            Map<Object, Object> response = new HashMap<>();
+            response.put("user_id",userProfile.getUserId());
+            response.put("mobile",userProfile.getMobile());
+            response.put("social",userProfile.getSocial());
+            response.put("about",userProfile.getAbout());
+            response.put("img_url",userProfile.getRating());
+            response.put("rating",userProfile.getRating());
+            response.put("level",userProfile.getLevel());
+            return new ResponseEntity(response, HttpStatus.OK);
         }
 
-        UserProfileDto result = UserProfileDto.fromUserProfile(userProfile);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+
     }
 }
