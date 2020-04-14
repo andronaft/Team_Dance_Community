@@ -12,6 +12,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 
 
+
 @Entity
 @Table(schema = "tdcbd" ,name = "user_profile")
 @EntityListeners(AuditingEntityListener.class)
