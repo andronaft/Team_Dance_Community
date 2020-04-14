@@ -1,9 +1,11 @@
 <template>
   <nav class="navbar">
-      <router-link to="/">Главная</router-link>
+      <div class="navbar__left">
+        <router-link to="/">Главная</router-link>
       <router-link to="/">Новости</router-link>
       <router-link to="/">Расписание</router-link>
       <router-link to="/login">Авторизация</router-link>
+      </div>
   </nav>
 </template>
 
@@ -21,6 +23,9 @@ export default {
     nav {
         display: flex;
         background: #11647E;
+        .navbar__left {
+        display: flex;
+        }
     }
 
     a {

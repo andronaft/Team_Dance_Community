@@ -7,9 +7,17 @@
           <h3>Registration</h3>
            <div class="login-form">
  <form @submit.prevent="register">
+     <label for="name">Username</label>
+      <div>
+          <input id="name" type="text" v-model="username" required autofocus>
+      </div>
       <label for="name">Name</label>
       <div>
-          <input id="name" type="text" v-model="name" required autofocus>
+          <input id="name" type="text" v-model="firstName" required autofocus>
+      </div>
+       <label for="password-confirm">Фамилия</label>
+      <div>
+          <input id="firstName" type="text" v-model="lastName" required>
       </div>
       <label for="email" >E-Mail Address</label>
       <div>
@@ -18,10 +26,6 @@
       <label for="password">Password</label>
       <div>
           <input id="password" type="password" v-model="password" required>
-      </div>
-      <label for="password-confirm">Confirm Password</label>
-      <div>
-          <input id="password-confirm" type="password" v-model="password_confirmation" required>
       </div>
       <div>
           <button type="submit">Register</button>
@@ -51,10 +55,11 @@ export default {
   name: 'Home',
   components: { VueperSlides, VueperSlide, Timetable },
   data: () => ({
-     name : "",
+        username: '',
         email : "",
         password : "",
-        password_confirmation : "",
+        firstName : "",
+        lastName: '',
         is_admin : null
 
   }),
@@ -68,13 +73,14 @@ export default {
       register() {
           console.log("Ligmein")
           let data = {
-          name: this.name,
+          username: this.username,
           email: this.email,
           password: this.password,
-          is_admin: this.is_admin
+          firstName: this.firstName,
+          lastName: this.lastName
         }
           this.$store.dispatch('register', data)
-       .then(() => this.$router.push('/'))
+       .then(() => alert("ok"))
        .catch(err => console.log(err))
 
 //           this.$axios.post('https://team-dance-community.herokuapp.com/api/v1/auth/login', {
@@ -132,7 +138,7 @@ export default {
     }
   }
 
-  input[type=text] {
+  input[type=text],input[type=email], input[type=firstname], input[type=password]{
   width: 100%;
   box-sizing: border-box;
   border: 2px solid #ccc;
