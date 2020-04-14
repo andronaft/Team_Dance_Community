@@ -25,29 +25,5 @@ public class AdminRestControllerV1 {
         this.userService = userService;
     }
 
-    @GetMapping(value = "users/{id}")
-    public ResponseEntity<AdminUserDto> getUserById(@PathVariable(name = "id") Long id) {
-        User user = userService.findById(id);
 
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        AdminUserDto result = AdminUserDto.fromUser(user);
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "users/")
-    public ResponseEntity<List<AdminUserDto>> getUser() {
-        List<User> userList = userService.getAll();
-
-        if (userList.size() == 0) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        ArrayList<AdminUserDto> result = AdminUserDto.fromArrayUser(userList);
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
 }
