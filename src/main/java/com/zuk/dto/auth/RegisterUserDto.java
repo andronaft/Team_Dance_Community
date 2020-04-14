@@ -1,4 +1,4 @@
-package com.zuk.dto.user;
+package com.zuk.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zuk.model.User;
