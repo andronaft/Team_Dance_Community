@@ -1,7 +1,7 @@
 package com.zuk.rest;
 
-import com.zuk.dto.user.AuthenticationRequestDto;
-import com.zuk.dto.user.RegisterUserDto;
+import com.zuk.dto.auth.AuthenticationRequestDto;
+import com.zuk.dto.auth.RegisterUserDto;
 import com.zuk.dto.user.check.CheckEmailDto;
 import com.zuk.dto.user.check.CheckUsernameDto;
 import com.zuk.model.User;
@@ -17,7 +17,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -85,14 +84,25 @@ public class AuthenticationRestControllerV1 {
         try {
             System.out.println(userDto.toString());
             String username = userDto.getUsername();
+            User checkUser = userService.findByUsername(userDto.getUsername());
+
+            if(checkUser!=null){
+                throw new UsernameNotFoundException("Username: " + username + " is not available");
+            }
             User user = userService.register(userDto.toUser());
-            System.out.println(user.getUsername().toString());
+
             if (user == null) {
                 throw new UsernameNotFoundException("User with username: " + username + " can't register");
             }
+
             UserProfile userProfile = new UserProfile();
             userProfile.setUserId(user.getId());
             userProfileService.register(userProfile);
+
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, userDto.getPassword()));
+
+
+            String token = jwtTokenProvider.createToken(username, user.getRoles());
 
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
@@ -100,7 +110,8 @@ public class AuthenticationRestControllerV1 {
             response.put("email",user.getEmail());
             response.put("firstName",user.getFirstName());
             response.put("lastName",user.getLastName());
-            //response.put("role",userresult.getRoles().size());
+            response.put("role",jwtTokenProvider.getRoleNames(user.getRoles()));
+            response.put("token", token);
 
 
             return ResponseEntity.ok(response);

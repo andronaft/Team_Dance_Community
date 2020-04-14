@@ -1,4 +1,4 @@
-package com.zuk.dto.user;
+package com.zuk.dto.auth;
 
 import lombok.Data;
 
