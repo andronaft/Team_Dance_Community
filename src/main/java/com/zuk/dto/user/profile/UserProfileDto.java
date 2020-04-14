@@ -1,9 +1,11 @@
 package com.zuk.dto.user.profile;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zuk.model.UserProfile;
 import lombok.Data;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProfileDto {
     private long userId;
     private String mobile;
@@ -29,7 +31,7 @@ public class UserProfileDto {
 
 
     UserProfileDto userProfileDto = new UserProfileDto();
-    try {
+
         userProfileDto.setUserId(userProfile.getUserId());
         userProfileDto.setMobile(userProfile.getMobile());
         userProfileDto.setSocial(userProfile.getSocial());
@@ -37,9 +39,7 @@ public class UserProfileDto {
         userProfileDto.setImgUrl(userProfile.getImgUrl());
         userProfileDto.setLevel(userProfile.getLevel());
         userProfileDto.setRating(userProfile.getRating());
-    }catch (Exception e){
 
-    }
         return userProfileDto;
 
     }

@@ -27,11 +27,6 @@ public class ProfileControllerV1 {
         this.userProfileService = userProfileService;
     }
 
-    @PostMapping("checkMobile")
-    public ResponseEntity checkMobile(@RequestBody CheckMobileDto checkMobileDto){
-        Map<Object, Object> response = new HashMap<>();
-        response.put("isExist",userProfileService.checkMobile(checkMobileDto.getMobile()));
-        return ResponseEntity.ok(response);
-    }
+
 
 }
