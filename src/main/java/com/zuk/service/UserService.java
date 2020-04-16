@@ -27,5 +27,7 @@ public interface UserService {
 
     Boolean checkEmail(String email);
 
+    User activateUser(Long id);
+
     void delete(Long id);
 }

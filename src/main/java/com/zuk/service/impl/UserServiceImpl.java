@@ -3,8 +3,10 @@ package com.zuk.service.impl;
 import com.zuk.model.Role;
 import com.zuk.model.Status;
 import com.zuk.model.User;
+import com.zuk.model.UserProfile;
 import com.zuk.repository.RoleRepository;
 import com.zuk.repository.UserRepository;
+import com.zuk.service.UserProfileService;
 import com.zuk.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +23,14 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserProfileService userProfileService;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, UserProfileService userProfileService, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.userProfileService = userProfileService;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -39,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
-        user.setStatus(Status.ACTIVE);
+        user.setStatus(Status.NOT_ACTIVE);
 
         User registeredUser = userRepository.save(user);
 
@@ -101,6 +105,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean checkEmail(String email) {
         return userRepository.findByEmail(email) != null;
+    }
+
+    @Override
+    public User activateUser(Long id) {
+        UserProfile userProfile = userProfileService.findById(id);
+        if(userProfile == null){
+            return null;
+        }
+        userProfile.setStatus(Status.ACTIVE);
+        userProfileService.update(userProfile);
+        User user = userRepository.getOne(id);
+        user.setStatus(Status.ACTIVE);
+        return userRepository.save(user);
     }
 
     @Override

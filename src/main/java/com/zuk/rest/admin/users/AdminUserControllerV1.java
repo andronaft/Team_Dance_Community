@@ -130,4 +130,18 @@ public class AdminUserControllerV1 {
             throw new BadCredentialsException("Invalid username or password");
         }
     }
+
+    @GetMapping(value = "activateUser/")
+    public ResponseEntity activateUser(@RequestBody UserDto userDto) {
+
+        try {
+
+
+            return new ResponseEntity<>(AdminUserWithRoleDto.fromUser(userService.activateUser(userDto.getId())), HttpStatus.OK);
+        } catch (AuthenticationException e) {
+            //throw  new UsernameNotFoundException("User  not found");
+            throw new BadCredentialsException("Invalid username or password");
+        }
+
+    }
 }
