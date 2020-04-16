@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeedBackDto {
+    private Long id;
     private String mobile;
     private String email;
     private String firstName;
