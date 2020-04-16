@@ -10,5 +10,6 @@ public interface UserProfileService {
     UserProfile update(UserProfile userProfile);
     List<UserProfile> getAll();
 
+
     Boolean checkMobile(String mobile);
 }
