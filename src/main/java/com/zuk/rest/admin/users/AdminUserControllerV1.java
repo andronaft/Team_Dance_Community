@@ -1,6 +1,7 @@
 package com.zuk.rest.admin.users;
 
 import com.zuk.dto.admin.AdminUserDto;
+import com.zuk.dto.user.UserDto;
 import com.zuk.model.User;
 import com.zuk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +23,20 @@ public class AdminUserControllerV1 {
     @Autowired
     public AdminUserControllerV1(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping(value = "findByUsername/")
+    public ResponseEntity<AdminUserDto> getUserByUsername(@RequestBody UserDto userDto)
+    {
+        Long id = userService.findByUsername(userDto.getUsername()).getId();
+        return getUserById(id);
+    }
+
+    @GetMapping(value = "findByEmail/")
+    public ResponseEntity<AdminUserDto> getUserByEmail(@RequestBody UserDto userDto)
+    {
+        Long id = userService.findByEmail(userDto.getEmail()).getId();
+        return getUserById(id);
     }
 
     @GetMapping(value = "{id}")
