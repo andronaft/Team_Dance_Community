@@ -1,6 +1,7 @@
 package com.zuk.dto.user.profile;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.zuk.model.Status;
 import com.zuk.model.UserProfile;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ public class UserProfileDto {
     private String imgUrl;//TODO
     private int rating;
     private int level;
+    private Status status;
 
     public UserProfile toUserProfile(){
         UserProfile userProfile = new UserProfile();
