@@ -1,25 +1,27 @@
 <template>
   <div class="home">
 
-      <div class="main">
-       
-        <main>
-          <h3>Автоизация</h3>
-           <div class="login-form">
- <form class="login" @submit.prevent="logMeIn">
-     <h1>Sign in</h1>
-     <label>Username</label>
-     <input required v-model="username" type="username" placeholder="Name"/>
-     <label>Password</label>
-     <input required v-model="password" type="password" placeholder="Password"/>
-     <hr/>
-     <button type="submit">Login</button>
-   </form>
+    <div class="main">
 
-   <button @click="logout">logout</button>
-           </div>
-          </main>
-      </div>
+      <main>
+        <h3>Автоизация</h3>
+        <div class="login-form">
+          <form class="login" @submit.prevent="logMeIn">
+            <label>Username</label>
+            <div>
+            <input required v-model="username" type="text" placeholder="Name" />
+            </div>
+            <label>Password</label>
+            <div>
+            <input required v-model="password" type="password" placeholder="Password" />
+            </div>
+            <button class="loginBtn" type="submit">Login</button>
+          </form>
+
+          <button @click="logout">logout</button>
+        </div>
+      </main>
+    </div>
   </div>
 </template>
 
@@ -82,44 +84,21 @@ export default {
     grid-template-columns: 1fr;
     @include lg {
       grid-template-columns: 1fr;
+      width: 400px;
+      margin: 0 auto;
     }
   }
 
 
-  .latestnews {
-    display: flex;
-    flex-direction: column;
-    .news__item {
-      padding: 10px;
-      display: flex;
-    }
-    a {
-      color: #fff;
-    }
-  }
 
-  .bottom {
-    padding: 10px 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .boxes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    a {
-      height: 100px;
-      width: 150px;
-    }
-  }
 
-  input[type=text] {
+.loginBtn {
   width: 100%;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  background-color: white;
-  background-repeat: no-repeat;
-  padding: 12px 20px 12px 20px;
+  margin-top: 10px;
+  background: #000;
+  color: #fff;
+  border:none;
+  cursor: pointer;
+  padding: 15px;
 }
 </style>

@@ -1,8 +1,12 @@
 <template>
   <div id="app">
     <navbar/>
-    <div v-if="isLoggedIn" class="alert alert-success" role="alert">You are logged in!</div>
-    <router-view/>
+    <main class="main">
+          <div v-if="isLoggedIn" class="alert alert-success" role="alert">You are logged in!</div>
+  <!-- 123{{user}} -->
+  <!-- <button @click="logout">Logout</button> -->
+      <router-view/>
+    </main>
   </div>
 </template>
 
@@ -17,7 +21,21 @@ export default {
     Navbar
   },
   computed: {
-    isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+    isLoggedIn : function(){ return this.$store.getters.isLoggedIn},
+    ...mapGetters({
+      user: "user"
+    }),
+  },
+  created() {
+    console.log(this.$store.state)
+  },
+  methods: {
+    logout: function () {
+        this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/login')
+        })
+      },
   }
 }
 </script>
@@ -28,25 +46,28 @@ body {
   padding: 0;
   margin: 0;
 }
+main.main {
+  margin-top: 60px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
-
+  overflow: auto;
   color: #fff;
 }
 
-#nav {
-  padding: 30px;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  input[type=text],input[type=email], input[type=firstname], input[type=password]{
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 20px;
 }
 </style>
