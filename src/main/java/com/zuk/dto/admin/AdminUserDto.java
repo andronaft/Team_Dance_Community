@@ -1,6 +1,7 @@
 package com.zuk.dto.admin;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.zuk.model.Role;
 import com.zuk.model.Status;
 import com.zuk.model.User;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class AdminUserDto {
     private String lastName;
     private String email;
     private String status;
+    //private List<Role> roles;
 
     public User toUser() {
         User user = new User();
