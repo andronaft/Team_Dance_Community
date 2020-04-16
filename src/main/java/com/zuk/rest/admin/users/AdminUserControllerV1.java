@@ -1,6 +1,7 @@
 package com.zuk.rest.admin.users;
 
 import com.zuk.dto.admin.AdminUserDto;
+import com.zuk.dto.admin.AdminUserWithRoleDto;
 import com.zuk.dto.user.UserDto;
 import com.zuk.model.User;
 import com.zuk.service.UserService;
@@ -12,7 +13,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/v1/admin/users/")
@@ -25,22 +28,74 @@ public class AdminUserControllerV1 {
         this.userService = userService;
     }
 
+
+    @GetMapping(value = "findByFirstName/")
+    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByFirstName(@RequestBody UserDto userDto)
+    {
+        try {
+
+            ArrayList result = userService.findByFirstName(userDto.getFirstName());
+            if (result.size() == 0) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            Map<Object, Object> response = new HashMap<>();
+
+
+            return new ResponseEntity<>(AdminUserWithRoleDto.fromArrayUser(result), HttpStatus.OK);
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid username or password");
+        }
+    }
+    @GetMapping(value = "findByLastName/")
+    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByLastName(@RequestBody UserDto userDto)
+    {
+        try {
+
+            ArrayList result = userService.findByLastName(userDto.getLastName());
+            if (result.size() == 0) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            Map<Object, Object> response = new HashMap<>();
+
+
+            return new ResponseEntity<>(AdminUserWithRoleDto.fromArrayUser(result), HttpStatus.OK);
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid username or password");
+        }
+    }
+    @GetMapping(value = "findByFirstNameAndLastName/")
+    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByFirstNameAndLastName(@RequestBody UserDto userDto)
+    {
+        try {
+
+            ArrayList result = userService.findByFirstNameAndLastName(userDto.getFirstName(),userDto.getLastName());
+            if (result.size() == 0) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            Map<Object, Object> response = new HashMap<>();
+
+
+            return new ResponseEntity<>(AdminUserWithRoleDto.fromArrayUser(result), HttpStatus.OK);
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid username or password");
+        }
+    }
     @GetMapping(value = "findByUsername/")
-    public ResponseEntity<AdminUserDto> getUserByUsername(@RequestBody UserDto userDto)
+    public ResponseEntity<AdminUserWithRoleDto> getUserByUsername(@RequestBody UserDto userDto)
     {
         Long id = userService.findByUsername(userDto.getUsername()).getId();
         return getUserById(id);
     }
 
     @GetMapping(value = "findByEmail/")
-    public ResponseEntity<AdminUserDto> getUserByEmail(@RequestBody UserDto userDto)
+    public ResponseEntity<AdminUserWithRoleDto> getUserByEmail(@RequestBody UserDto userDto)
     {
         Long id = userService.findByEmail(userDto.getEmail()).getId();
         return getUserById(id);
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<AdminUserDto> getUserById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<AdminUserWithRoleDto> getUserById(@PathVariable(name = "id") Long id) {
         try {
             User user = userService.findById(id);
 
@@ -48,7 +103,7 @@ public class AdminUserControllerV1 {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            AdminUserDto result = AdminUserDto.fromUser(user);
+            AdminUserWithRoleDto result = AdminUserWithRoleDto.fromUser(user);
 
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (AuthenticationException e) {
@@ -58,7 +113,7 @@ public class AdminUserControllerV1 {
     }
 
     @GetMapping(value = "")
-    public ResponseEntity<List<AdminUserDto>> getUser() {
+    public ResponseEntity<List<AdminUserWithRoleDto>> getUser() {
         try {
 
             List<User> userList = userService.getAll();
@@ -67,7 +122,7 @@ public class AdminUserControllerV1 {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            ArrayList<AdminUserDto> result = AdminUserDto.fromArrayUser(userList);
+            ArrayList<AdminUserWithRoleDto> result = AdminUserWithRoleDto.fromArrayUser(userList);
 
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (AuthenticationException e) {
