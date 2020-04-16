@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
 @Slf4j
@@ -30,5 +31,22 @@ public class FeedBackServiceImpl implements FeedBackService {
         backEntity.setUpdated(Timestamp.valueOf(LocalDateTime.now()));
         backEntity.setStatus(Status.NOT_ACTIVE);
         return feedbackRepo.save(backEntity);
+    }
+
+    @Override
+    public ArrayList<Feedback> findAll() {
+        return (ArrayList<Feedback>) feedbackRepo.findAll();
+    }
+
+    @Override
+    public ArrayList<Feedback> findAllNotActive() {
+        return (ArrayList<Feedback>) feedbackRepo.findAllByStatus(Status.NOT_ACTIVE);
+    }
+
+    @Override
+    public Feedback adminApplyById(Long id) {
+        Feedback findFeedBack = feedbackRepo.getOne(id);
+        findFeedBack.setStatus(Status.ACTIVE);
+        return feedbackRepo.save(findFeedBack);
     }
 }
