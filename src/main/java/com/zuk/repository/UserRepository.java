@@ -1,6 +1,7 @@
 package com.zuk.repository;
 
 import com.zuk.model.User;
+import org.hibernate.annotations.SQLUpdate;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
