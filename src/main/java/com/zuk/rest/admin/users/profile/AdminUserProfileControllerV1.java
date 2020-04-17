@@ -47,14 +47,14 @@ public class AdminUserProfileControllerV1 {
             response.put("img_url",userProfile.getRating());
             response.put("rating",userProfile.getRating());
             response.put("level",userProfile.getLevel());
-            response.put("created",userProfile.getCreated().toLocalDateTime());
+            response.put("created",userProfile.getCreated());
             response.put("updated",userProfile.getUpdated());
             response.put("status",userProfile.getStatus());
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (JwtAuthenticationException e){
             throw new JwtAuthenticationException("invalid token");
         } catch (AuthenticationException  e) {
-            //throw  new UsernameNotFoundException("User  not found");
+
             throw new BadCredentialsException("Invalid username or password");
         }
     }

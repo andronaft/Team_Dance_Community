@@ -29,4 +29,7 @@ public class Branch extends BaseEntity {
     @Column(name = "location")
     private String location;
 
+    @Column(name = "img_url")
+    private String imgUrl;
+
 }

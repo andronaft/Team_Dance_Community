@@ -5,6 +5,8 @@ import com.zuk.model.User;
 import lombok.Data;
 
 
+
+
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RegisterUserDto {

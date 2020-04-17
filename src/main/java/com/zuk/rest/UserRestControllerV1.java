@@ -46,6 +46,19 @@ public class UserRestControllerV1 {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping(value = "getAllUserInfo")
+    public ResponseEntity getAllUserInfo(@RequestHeader("Authorization") String token){
+        User user = userService.findByUsername(jwtTokenProvider.getUsername(token.substring(7)));
+        UserProfile userProfile = userProfileService.findById(user.getId());
+        Map<Object, Object> response = new HashMap<>();
+        response.put("user", UserDto.fromUser(user));
+        response.put("profile",UserProfileDto.fromUserProfile(userProfile));
+
+
+
+        return ResponseEntity.ok(response);
+    }
+
 
 
 }
