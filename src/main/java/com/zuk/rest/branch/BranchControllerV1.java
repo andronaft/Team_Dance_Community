@@ -1,5 +1,6 @@
 package com.zuk.rest.branch;
 
+import com.zuk.dto.branch.BranchDto;
 import com.zuk.service.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,15 +17,15 @@ public class BranchControllerV1 {
         this.branchService = branchService;
     }
 
-    @PostMapping(value = "findAll/")
-    public ResponseEntity findAll(){
+    @GetMapping(value = "")
+    public ResponseEntity findAllActive(){
 
-        return new ResponseEntity<>(branchService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(BranchDto.fromArrayBranch(branchService.findAllActive()), HttpStatus.OK);
     }
 
-    @GetMapping(value = "{id}")
-    public ResponseEntity findById(@PathVariable(name = "id") Long id){
-
+    @GetMapping(value = "{id}/")
+    public ResponseEntity findById(@PathVariable(name = "id") Long id ){
+        System.out.println("good");
         return new ResponseEntity<>(branchService.findById(id), HttpStatus.OK);
-    }
+}
 }
