@@ -2,6 +2,7 @@ package com.zuk.service.impl;
 
 
 import com.zuk.model.Branch;
+import com.zuk.model.Status;
 import com.zuk.repository.BranchRepository;
 import com.zuk.service.BranchService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,29 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
+    public ArrayList<Branch> findAllActive() {
+        return (ArrayList<Branch>) branchRepository.findAllByStatus(Status.ACTIVE);
+    }
+
+    @Override
     public Branch findById(Long id) {
         return branchRepository.getOne(id);
+    }
+
+    @Override
+    public Branch create(Branch branch) {
+        branch.setStatus(Status.NOT_ACTIVE);
+        return branchRepository.save(branch);
+    }
+
+    @Override
+    public Branch update(Branch branch) {
+        System.out.println("update " + branch);
+        Branch branchFind = findById(branch.getId());
+
+        branch.setCreated(branchFind.getCreated());
+
+
+        return branchRepository.save(branch);
     }
 }
