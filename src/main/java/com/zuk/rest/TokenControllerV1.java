@@ -1,9 +1,12 @@
 package com.zuk.rest;
 
 import com.zuk.dto.auth.RegisterUserDto;
+import com.zuk.security.JwtAuthenticationException;
 import com.zuk.security.JwtTokenProvider;
 import com.zuk.service.UserProfileService;
 import com.zuk.service.UserService;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +29,14 @@ public class TokenControllerV1 {
     }
 
     @RequestMapping(value = "validate")
-    public ResponseEntity validate(@RequestHeader("Authorization") String token){//TODO
-
-            Map<Object, Object> response = new HashMap<>();
-        System.out.println("12");
-        String username;
-        username = jwtTokenProvider.getAuthentication(token).getName();
-        System.out.println(username);
-            response.put("validate", jwtTokenProvider.getAuthentication(token));
+    public ResponseEntity validate(@RequestHeader("Authorization") String token) {//TODO
+        Map<Object, Object> response = new HashMap<>();
+        try {
+            response.put("validate", jwtTokenProvider.validateToken(token.substring(7)));
             return new ResponseEntity(response, HttpStatus.OK);
-
+        }catch (JwtAuthenticationException e){
+            response.put("validate", false);
+            return new ResponseEntity(response, HttpStatus.OK);
+        }
     }
 }
