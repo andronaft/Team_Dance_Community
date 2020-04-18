@@ -1,12 +1,14 @@
 <template>
   <nav class="navbar">
-    <button class="burger" @click="toogleNav">
+      <div class="navbar__left"  v-click-outside="hideNav">
+        <button class="burger" @click="toogleNav">
       <font-awesome-icon icon="hamburger"  :style="{ color: 'white' }"></font-awesome-icon>
     </button>
-      <div class="navbar__left" :class="{active: isActive}">
+     <div class="nav" :class="{active : isActive}" >
       <router-link v-on:click.native="clickNav" to="/">Главная</router-link>
       <router-link v-on:click.native="clickNav" to="/">Новости</router-link>
       <router-link v-on:click.native="clickNav" to="/">Расписание</router-link>
+     </div>
       
       </div>
       <div class="navbar__center">
@@ -18,6 +20,7 @@
           <!-- <router-link to="/login">Авторизация</router-link> -->
               <Login/>
       </div>
+      
   </nav>
 </template>
 
@@ -42,6 +45,9 @@ export default {
   methods: {
     clickNav() {
       this.toogleNav()
+    },
+    hideNav() {
+      this.isActive = false
     },
     toogleNav() {
       console.log("toogle nav")
@@ -85,18 +91,24 @@ export default {
     }
 
   &__left {
-    display: none;
-    @include lg {
-      display: flex;
-    }
+     display: flex;
+     .nav {
+       display: none;
+       @include lg {
+         position: relative;
+         display: flex;
+       }
 
-    &.active {
+       &.active {
       width: 100%;
       background: #11647E;
       position: absolute;
       top:60px;
       display: grid;
     }
+     }
+
+    
   }
   &__center {
     text-align: center;

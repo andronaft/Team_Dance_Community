@@ -3,6 +3,7 @@
     <navbar/>
     <main class="main">
           <div v-if="isLoggedIn" class="alert alert-success" role="alert">You are logged in!</div>
+         
   <!-- 123{{user}} -->
   <!-- <button @click="logout">Logout</button> -->
       <router-view/>

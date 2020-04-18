@@ -1,5 +1,5 @@
 <template>
-<div class="login_navbar">
+<div class="login_navbar" v-click-outside="hideProfile">
     <div v-if="!isLoggedIn">
         <button @click="toggleProfile">
         <font-awesome-icon icon="user" :style="{ color: 'white' }"></font-awesome-icon>
@@ -20,6 +20,7 @@
     </div>
     </div>
     <div v-else>
+         
         <button @click="toggleProfile">
         <font-awesome-icon icon="user" :style="{ color: 'white' }"></font-awesome-icon>
          </button>
@@ -30,7 +31,7 @@
                      avatar
                  </div>
                  <div class="username">
-                     <router-link :to="{ name: 'Profile', params: { username: user.username }}">{{user.username}}</router-link>
+                     <router-link :to="{ name: 'Profile', params: { username: store_username }}">{{store_username}}</router-link>
                  </div>
                  <div class="logout">
                        <button class="logoutBtn" @click="logout">Logout</button>
@@ -45,8 +46,10 @@
 import store from "../store";
 import { mapGetters } from "vuex";
 
+
 export default {
   name: 'LoginComponent',
+
   data: () => ({
     username: 'testuser',
     password: '13371337',
@@ -54,10 +57,10 @@ export default {
   }),
   computed: {
     isLoggedIn : function(){ return this.$store.getters.isLoggedIn},
-    user: function(){ return this.$store.getters.user},
+    store_username: function(){ return this.$store.getters.user.username},
   },
   created() {
-      console.log(this.$store.state.user)
+      console.log("State",this.$store.state.user)
   },
   methods: {
       logMeIn() {
@@ -71,6 +74,10 @@ export default {
       toggleProfile() {
       console.log("toogle profile")
       this.isActive = !this.isActive
+    },
+     hideProfile() {
+      console.log("toogle profile")
+      this.isActive = false
     },
      logout: function () {
         this.$store.dispatch('logout')
