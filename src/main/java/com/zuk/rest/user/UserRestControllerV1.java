@@ -63,10 +63,7 @@ public class UserRestControllerV1 {
     public ResponseEntity updatePassword(@RequestBody PasswordDto passwordDto,@RequestHeader("Authorization") String token){
         User user = userService.findByUsername(jwtTokenProvider.getUsername(token.substring(7)));
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),passwordDto.getOldPassword()));
-        System.out.println(user.getPassword() + "User find by token");
-        System.out.println(passwordDto);
         User userUpdate = userService.updatePassword(passwordDto.getNewPassword(),user.getId());
-        System.out.println(userUpdate.getPassword() + " UserUpdate");
         Map<Object, Object> response = new HashMap<>();
         response.put("message", "password changed successfully");
         return ResponseEntity.ok(response);
