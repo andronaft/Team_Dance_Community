@@ -121,6 +121,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User updatePassword(String password,Long id) {
+        User user = userRepository.getOne(id);
+        user.setPassword(passwordEncoder.encode(password));
+        return userRepository.save(user);
+    }
+
+    @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
         log.info("IN delete - user with id: {} successfully deleted",id);
