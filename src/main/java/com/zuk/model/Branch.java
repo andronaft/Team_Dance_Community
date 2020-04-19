@@ -7,10 +7,7 @@ import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @EqualsAndHashCode(callSuper = true)
@@ -36,4 +33,6 @@ public class Branch extends BaseEntity  implements Serializable {
     @Column(name = "img_url")
     private String imgUrl;
 
+    @OneToOne(mappedBy = "branch")
+    private GroupTraining groupTraining;
 }
