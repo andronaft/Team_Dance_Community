@@ -10,5 +10,8 @@ public interface GroupTrainingService {
    ArrayList<GroupTraining> findAll();
    ArrayList<GroupTraining> findByDay(WeekDay weekDay);
    ArrayList<GroupTraining> findByBranch(Long branchId);
+
+   GroupTraining create(GroupTraining groupTraining);
+   GroupTraining update(GroupTraining groupTraining);
    //ArraList<GroupTraining> findByLocation(Long id)
 }

@@ -40,4 +40,16 @@ public class GroupTrainingServiceImpl implements GroupTrainingService {
     public ArrayList<GroupTraining> findByBranch(Long branchId) {
         return (ArrayList<GroupTraining>) groupTrainingRepository.findAllByBranchId(branchId);
     }
+
+    @Override
+    public GroupTraining create(GroupTraining groupTraining) {
+        System.out.println(groupTraining);
+        return groupTrainingRepository.save(groupTraining);
+    }
+
+    @Override
+    public GroupTraining update(GroupTraining groupTraining) {
+        System.out.println(groupTraining);
+        return groupTrainingRepository.save(groupTraining);
+    }
 }
