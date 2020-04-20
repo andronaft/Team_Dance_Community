@@ -13,6 +13,8 @@ Vue.prototype.$axios = axios;
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
 console.log("Token", token)
+Vue.prototype.$axios.defaults.baseURL = 'https://team-dance-community.herokuapp.com';
+
 if (token) {
   Vue.prototype.$axios.defaults.headers.common['Authorization'] = token
 }
