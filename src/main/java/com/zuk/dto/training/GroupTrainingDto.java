@@ -3,10 +3,7 @@ package com.zuk.dto.training;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zuk.dto.admin.AdminUserWithRoleDto;
-import com.zuk.model.GroupTraining;
-import com.zuk.model.Status;
-import com.zuk.model.User;
-import com.zuk.model.WeekDay;
+import com.zuk.model.*;
 import lombok.Data;
 
 import java.sql.Time;
@@ -21,6 +18,7 @@ public class GroupTrainingDto {
     private String name;
     private Long branchId;
     private int capacity;
+    private String location;
     private Time time;
     private WeekDay weekDay;
     private Timestamp created;
@@ -44,5 +42,19 @@ public class GroupTrainingDto {
             groupTrainingDtoArrayList.add(fromGroupTraining(groupTraining));
         }
         return groupTrainingDtoArrayList;
+    }
+
+    public GroupTraining toGroupTrainingAdmin(){
+        GroupTraining groupTraining = new GroupTraining();
+        //groupTraining.setId(id);
+        groupTraining.setName(name);
+        groupTraining.setLocation(location);
+        Branch branch = new Branch();branch.setId(branchId);
+        groupTraining.setBranch(branch);
+        groupTraining.setCapacity(capacity);
+        groupTraining.setTime(time);
+        groupTraining.setWeekDay(weekDay);
+        groupTraining.setStatus(status);
+        return groupTraining;
     }
 }
