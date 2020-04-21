@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar">
       <div class="navbar__left"  v-click-outside="hideNav">
-        <button class="burger" @click="toogleNav">
-      <font-awesome-icon icon="hamburger"  :style="{ color: 'white' }"></font-awesome-icon>
+        <button class="burger" @click="toggleNav">
+      <font-awesome-icon icon="hamburger" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
     </button>
      <div class="nav" :class="{active : isActive}" >
       <router-link v-on:click.native="clickNav" to="/">Главная</router-link>
@@ -44,18 +44,22 @@ export default {
 
   methods: {
     clickNav() {
-      this.toogleNav()
+      if(this.isMobile()) {
+          this.toggleNav()
+      }
+      
     },
     hideNav() {
-      this.isActive = false
+      console.log(this.isMobile())
+      if(this.isMobile()) {
+          this.isActive = false
+      }
     },
-    toogleNav() {
-      console.log("toogle nav")
+    toggleNav() {
+      console.log("toggle nav")
       this.isActive = !this.isActive
     },
-    toggleProfile() {
-      console.log("toogle profile")
-    }
+
   }
 }
 </script>
@@ -69,7 +73,6 @@ export default {
   left: 0;
   justify-items: flex-start;
   align-items: center;
-  padding: 20px;
   @include lg {
     display: none;
   }
@@ -114,8 +117,9 @@ export default {
     text-align: center;
   }
   &__right {
+    display: flex;
+    justify-content: flex-end;
     text-align: right;
-    padding: 20px;
   }
 }
 

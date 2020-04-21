@@ -34,18 +34,18 @@ export default {
   },
   data() {
     return {
-        allUsers: []
+        allBranches: []
     }
   },
   created() {
-      this.getAllUsers()
+      this.getAllBranches()
   },
   methods: {
-      getAllUsers() {
-                    this.$axios.get('/api/v1/admin/users/',{
+      getAllBranches() {
+                    this.$axios.get('/api/v1/admin/branch/',{
     headers: { "Access-Control-Allow-Origin": "*" }
 }).then( (response) => {
-    this.allUsers = response.data;
+    this.allBranches = response.data;
     console.log("response",response);
    
   })

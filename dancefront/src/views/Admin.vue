@@ -3,7 +3,8 @@
     <aside>
         <nav>
             <router-link class="nav-link" @click.native.prevent="navClick('Users')" to="/admin">Пользователи</router-link>
-            <router-link class="nav-link" @click.native.prevent="navClick('HelloWorld')" to="/admin">Пользователи</router-link>
+            <router-link class="nav-link" @click.native.prevent="navClick('Branches')" to="/admin">Бранчи</router-link>
+            <router-link class="nav-link" @click.native.prevent="navClick('Bids')" to="/admin">Заявки</router-link>
         </nav>
     </aside>
     <main>
@@ -16,10 +17,12 @@
 
 import HelloWorld from '@/components/HelloWorld.vue'
 import Users from '@/components/admin/Users.vue'
+import Branches from '@/components/admin/Branches.vue'
+import Bids from '@/components/admin/Branches.vue'
 
 export default {
     components: {
-        HelloWorld, Users
+        HelloWorld, Users, Branches, Bids
     },
     data() {
         return {
