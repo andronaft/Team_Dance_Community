@@ -37,7 +37,7 @@ public class AdminBranchControllerV1 {
 
 
     @GetMapping(value = "")
-    public ResponseEntity findAll(){
+    public ResponseEntity<List<Branch>> findAll(){
 
         return new ResponseEntity<>(branchService.findAll(), HttpStatus.OK);
     }
