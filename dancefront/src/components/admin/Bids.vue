@@ -34,18 +34,18 @@ export default {
   },
   data() {
     return {
-        allUsers: []
+        newBids: []
     }
   },
   created() {
-      this.getAllUsers()
+      this.getAllBranches()
   },
   methods: {
-      getAllUsers() {
-                    this.$axios.get('/api/v1/admin/users/',{
+      getNewBids() {
+                    this.$axios.get('/api/v1/admin/admin/bid/findAllNotActiveFeedback/',{
     headers: { "Access-Control-Allow-Origin": "*" }
 }).then( (response) => {
-    this.allUsers = response.data;
+    this.newBids = response.data;
     console.log("response",response);
    
   })

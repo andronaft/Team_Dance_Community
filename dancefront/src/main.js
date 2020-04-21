@@ -6,6 +6,15 @@ import store from './store'
 
 import { clickOutside } from './Directive.js';
 
+
+Vue.mixin({
+  methods: {
+    isMobile() {
+      return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    }
+  }
+})
+
 Vue.directive('click-outside', clickOutside)
 import axios from 'axios'
 Vue.config.productionTip = false

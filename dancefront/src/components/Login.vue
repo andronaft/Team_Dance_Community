@@ -1,8 +1,8 @@
 <template>
 <div class="login_navbar" v-click-outside="hideProfile">
     <div v-if="!isLoggedIn">
-        <button @click="toggleProfile">
-        <font-awesome-icon icon="user" :style="{ color: 'white' }"></font-awesome-icon>
+        <button class="profile" @click="toggleProfile">
+        <font-awesome-icon icon="user" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
     </button>
     <div class="profile_dialog" :class="{active: isActive}">
         <form class="login" @submit.prevent="logMeIn">
@@ -19,10 +19,10 @@
         </form>
     </div>
     </div>
-    <div v-else>
+    <div class="" v-else>
          
-        <button @click="toggleProfile">
-        <font-awesome-icon icon="user" :style="{ color: 'white' }"></font-awesome-icon>
+        <button class="profile" @click="toggleProfile">
+        <font-awesome-icon icon="user" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
          </button>
 
          <div class="profile_dialog" :class="{active: isActive}">
@@ -76,8 +76,10 @@ export default {
       this.isActive = !this.isActive
     },
      hideProfile() {
-      console.log("toogle profile")
-      this.isActive = false
+      console.log("hide profile")
+      if(this.isMobile()) {
+          this.isActive = false
+      }
     },
      logout: function () {
         this.$store.dispatch('logout')
@@ -91,6 +93,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.login_navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
    .profile_dialog {
        margin-top: 15px;
   background-color: #fff;
@@ -116,5 +124,14 @@ export default {
   border:none;
   cursor: pointer;
   padding: 15px;
+}
+
+.profile {
+    text-align: left;
+    position: relative;
+    display: flex;
+    right: 0;
+    justify-items: flex-start;
+    align-items: center;
 }
 </style>
