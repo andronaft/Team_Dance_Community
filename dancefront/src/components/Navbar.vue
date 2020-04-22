@@ -84,7 +84,7 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
-  background: #11647E;
+  background: var(--color-main);
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -101,7 +101,13 @@ export default {
          position: relative;
          display: flex;
        }
+       a {
+         transition: all .4s ease-in-out;
+         &:hover {
+         background-color: var(--color-primary-dark);
+       }
 
+       }
        &.active {
       width: 100%;
       background: #11647E;

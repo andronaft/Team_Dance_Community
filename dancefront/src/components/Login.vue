@@ -2,42 +2,46 @@
 <div class="login_navbar" v-click-outside="hideProfile">
     <div v-if="!isLoggedIn">
         <button class="profile" @click="toggleProfile">
-        <font-awesome-icon icon="user" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
-    </button>
-    <div class="profile_dialog" :class="{active: isActive}">
-        <form class="login" @submit.prevent="logMeIn">
-            <label>Username</label>
-            <div>
-                <input required v-model="username" type="text" placeholder="Name" />
+            <font-awesome-icon icon="user" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
+        </button>
+        <transition name="fade">
+            <div class="profile_dialog" :class="{active: isActive}" v-if="isActive">
+                <form class="login" @submit.prevent="logMeIn">
+                    <label>Username</label>
+                    <div>
+                        <input required v-model="username" type="text" placeholder="Name" />
+                    </div>
+                    <label>Password</label>
+                    <div>
+                        <input required v-model="password" type="password" placeholder="Password" />
+                    </div>
+                    <button class="loginBtn" type="submit">Login</button>
+                    <router-link to="/registration" @click.native="toggleProfile">Регистрация</router-link>
+                </form>
             </div>
-            <label>Password</label>
-            <div>
-                <input required v-model="password" type="password" placeholder="Password" />
-            </div>
-            <button class="loginBtn" type="submit">Login</button>
-            <router-link to="/registration" @click.native="toggleProfile">Регистрация</router-link>
-        </form>
-    </div>
+        </transition>
     </div>
     <div class="" v-else>
-         
-        <button class="profile" @click="toggleProfile">
-        <font-awesome-icon icon="user" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
-         </button>
 
-         <div class="profile_dialog" :class="{active: isActive}">
-             <div>
-                 <div class="logo">
-                     avatar
-                 </div>
-                 <div class="username">
-                     <router-link :to="{ name: 'Profile', params: { username: store_username }}">{{store_username}}</router-link>
-                 </div>
-                 <div class="logout">
-                       <button class="logoutBtn" @click="logout">Logout</button>
-                 </div>
-             </div>
-    </div>
+        <button class="profile" @click="toggleProfile">
+            <font-awesome-icon icon="user" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
+        </button>
+        <transition name="fade">
+        <div class="profile_dialog" :class="{active: isActive}" v-if="isActive">
+            <div>
+                <div class="logo">
+                       <img alt="Vue logo" src="@/assets/logo.png">
+                </div>
+                <div class="username">
+                    <router-link :to="{ name: 'Profile', params: { username: store_username }}">{{store_username}}
+                    </router-link>
+                </div>
+                <div class="logout">
+                    <button class="logoutBtn" @click="logout">Logout</button>
+                </div>
+            </div>
+        </div>
+        </transition>
     </div>
 </div>
 </template>
@@ -114,6 +118,12 @@ export default {
     .login {
         padding: 20px;
     }
+    @include lg { 
+
+        left: auto;
+        right: 0;
+        width: 200px;
+    }
 }
 
 .loginBtn, .logoutBtn {
@@ -127,11 +137,16 @@ export default {
 }
 
 .profile {
+    margin-right: 20px;
     text-align: left;
     position: relative;
     display: flex;
     right: 0;
     justify-items: flex-start;
     align-items: center;
+    -webkit-appearance: none;
+border-radius: 0;
+background: none;
+border: none;
 }
 </style>

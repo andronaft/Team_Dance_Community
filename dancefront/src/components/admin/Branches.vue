@@ -4,21 +4,26 @@
     <table>
   <tr>
     <th>ID</th>
-    <th>Username</th>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Email</th>
+    <th>Name</th>
+    <th>Information</th>
+    <th>Contact</th>
+    <th>Location</th>
+    <th>Img Url</th>
     <th>Status</th>
-    <th>Roles</th>
+    <th>Created</th>
+    <th>Updated</th>
   </tr>
-  <tr v-for="user in allUsers" v-bind:key="user.id">
+  <tr v-for="user in allBranches" v-bind:key="user.id">
     <td>{{user.id}}</td>
-    <td>{{user.username}}</td>
-    <td>{{user.firstName}}</td>
-    <td>{{user.lastName}}</td>
-    <td>{{user.email}}</td>
+    <td>{{user.name}}</td>
+    <td>{{user.information}}</td>
+    <td>{{user.contact}}</td>
+    <td>{{user.location}}</td>
+    <td>{{user.imgUrl}}</td>
     <td>{{user.status}}</td>
-    <td>{{user.roles}}</td>
+    <td>{{date(user.created)}}</td>
+    <td>{{date(user.updated)}}</td>
+
   </tr>
 
 
@@ -37,10 +42,16 @@ export default {
         allBranches: []
     }
   },
+  computed: {
+      
+  },
   created() {
       this.getAllBranches()
   },
   methods: {
+      date(timestamp) {
+          return this.convertTimestamp(timestamp)
+      },
       getAllBranches() {
                     this.$axios.get('/api/v1/admin/branch/',{
     headers: { "Access-Control-Allow-Origin": "*" }

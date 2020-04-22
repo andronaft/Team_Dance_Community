@@ -18,7 +18,7 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 import Users from '@/components/admin/Users.vue'
 import Branches from '@/components/admin/Branches.vue'
-import Bids from '@/components/admin/Branches.vue'
+import Bids from '@/components/admin/Bids/Bids.vue'
 
 export default {
     components: {
