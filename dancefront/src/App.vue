@@ -42,6 +42,9 @@ export default {
 </script>
 
 <style lang="scss">
+button:focus {outline:0;}
+
+
 body {
   background: #213751;
   padding: 0;
@@ -70,5 +73,13 @@ main.main {
   background-color: white;
   background-repeat: no-repeat;
   padding: 12px 20px 12px 20px;
+}
+
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }
 </style>
