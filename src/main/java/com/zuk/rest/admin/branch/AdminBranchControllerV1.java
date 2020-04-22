@@ -1,14 +1,15 @@
 package com.zuk.rest.admin.branch;
 
-import antlr.collections.List;
+
 import com.zuk.dto.branch.BranchDto;
 import com.zuk.model.Branch;
 import com.zuk.service.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -40,7 +41,7 @@ public class AdminBranchControllerV1 {
     @GetMapping(value = "")
     public ResponseEntity<List<Branch>> findAll(){
 
-        return new ResponseEntity<>(branchService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<List<Branch>>(branchService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "{id}" )
