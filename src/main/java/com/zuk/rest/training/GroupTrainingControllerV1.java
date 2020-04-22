@@ -33,13 +33,13 @@ public class GroupTrainingControllerV1 {
     }
 
     @GetMapping(value = "findByDay")
-    public ResponseEntity findByDay(@RequestBody GroupTrainingDto groupTrainingDto){
+    public ResponseEntity findByDay(@RequestParam WeekDay weekDay){
 
-        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTraining(groupTrainingService.findByDay(groupTrainingDto.getWeekDay())), HttpStatus.OK);
+        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTraining(groupTrainingService.findByDay(weekDay)), HttpStatus.OK);
     }
     @GetMapping(value = "findByBranch")
-    public ResponseEntity findByBranch(@RequestBody GroupTrainingDto groupTrainingDto){
-        System.out.println(groupTrainingDto.getBranchId());
-        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTraining(groupTrainingService.findByBranch(groupTrainingDto.getBranchId())), HttpStatus.OK);
+    public ResponseEntity findByBranch(@RequestParam Long branchId){
+
+        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTraining(groupTrainingService.findByBranch(branchId)), HttpStatus.OK);
     }
 }

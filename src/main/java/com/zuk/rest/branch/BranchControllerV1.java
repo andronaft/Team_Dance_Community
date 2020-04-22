@@ -23,9 +23,15 @@ public class BranchControllerV1 {
         return new ResponseEntity<>(BranchDto.fromArrayBranch(branchService.findAllActive()), HttpStatus.OK);
     }
 
-    @GetMapping(value = "{id}/")
+  /*  @GetMapping(value = "{id}/")
     public ResponseEntity findById(@PathVariable(name = "id") Long id ){
         System.out.println("good");
         return new ResponseEntity<>(branchService.findById(id), HttpStatus.OK);
-}
+    }*/
+
+    @GetMapping(value = "findById/")
+    public ResponseEntity findById(@RequestParam Long id) {
+        System.out.println("good");
+        return new ResponseEntity<>(branchService.findById(id), HttpStatus.OK);
+    }
 }
