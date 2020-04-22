@@ -39,9 +39,9 @@ public class AdminBranchControllerV1 {
 
 
     @GetMapping(value = "")
-    public ResponseEntity<List<Branch>> findAll(){
+    public ResponseEntity<List<BranchDto>> findAll(){
 
-        return new ResponseEntity<List<Branch>>(branchService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<List<BranchDto>>(BranchDto.fromArrayBranchAdmin(branchService.findAll()), HttpStatus.OK);
     }
 
     @GetMapping(value = "{id}" )
