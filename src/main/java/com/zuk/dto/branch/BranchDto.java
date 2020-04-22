@@ -58,6 +58,7 @@ public class BranchDto {
         branchDto.setInformation(branch.getInformation());
         branchDto.setContact(branch.getContact());
         branchDto.setLocation(branch.getLocation());
+        branchDto.setStatus(branch.getStatus());
         branchDto.setCreated(branch.getCreated());
         branchDto.setUpdated(branch.getUpdated());
         return branchDto;
