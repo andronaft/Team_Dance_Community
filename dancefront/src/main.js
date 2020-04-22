@@ -6,6 +6,9 @@ import store from './store'
 
 import { clickOutside } from './Directive.js';
 
+import VModal from 'vue-js-modal'
+ 
+Vue.use(VModal)
 
 Vue.mixin({
   methods: {
