@@ -1,0 +1,4 @@
+package com.zuk.model;
+
+public class Hall {//TODO
+}
