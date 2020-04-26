@@ -8,6 +8,8 @@ import com.zuk.service.GroupTrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,9 +30,14 @@ public class GroupTrainingControllerV1 {
 
    @GetMapping(value = "")
     public ResponseEntity findAll(){
-
+       try {
        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTraining(groupTrainingService.findAll()), HttpStatus.OK);
-    }
+       } catch (Exception e) {
+           // throw  new UsernameNotFoundException("User  not found");
+           //
+           return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTraining(groupTrainingService.findAll()), HttpStatus.OK);
+       }
+       }
 
     @GetMapping(value = "findByDay")
     public ResponseEntity findByDay(@RequestParam WeekDay weekDay){
