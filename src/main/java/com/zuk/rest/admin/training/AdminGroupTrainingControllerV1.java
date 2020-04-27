@@ -21,29 +21,32 @@ public class AdminGroupTrainingControllerV1 {
     @GetMapping(value = "{id}")
     public ResponseEntity findById(@PathVariable(name = "id") Long id){
 
-        return new ResponseEntity<>(groupTrainingService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(GroupTrainingDto.fromGroupTrainingAdmin(groupTrainingService.findById(id)), HttpStatus.OK);
     }
 
     @GetMapping(value = "")
     public ResponseEntity findAll(){
 
-        return new ResponseEntity<>(groupTrainingService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTrainingAdmin(groupTrainingService.findAll()), HttpStatus.OK);
     }
 
     @GetMapping(value = "findByDay")
     public ResponseEntity findByDay(@RequestBody GroupTrainingDto groupTrainingDto){
 
-        return new ResponseEntity<>(groupTrainingService.findByDay(groupTrainingDto.getWeekDay()), HttpStatus.OK);
+        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTrainingAdmin(groupTrainingService.findByDay(groupTrainingDto.getWeekDay())), HttpStatus.OK);
     }
     @GetMapping(value = "findByBranch")
     public ResponseEntity findByBranch(@RequestBody GroupTrainingDto groupTrainingDto){
-        return new ResponseEntity<>(groupTrainingService.findByBranch(groupTrainingDto.getBranchId()), HttpStatus.OK);
+        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTrainingAdmin(groupTrainingService.findByBranch(groupTrainingDto.getBranchId())), HttpStatus.OK);
     }
 
     @PostMapping(value = "create")
     public ResponseEntity create(@RequestBody GroupTrainingDto groupTrainingDto){
-        System.out.println(groupTrainingDto);
-        System.out.println(groupTrainingDto.toGroupTrainingAdmin());
         return new ResponseEntity<>(groupTrainingService.create(groupTrainingDto.toGroupTrainingAdmin()),HttpStatus.OK);
+    }
+
+    @PostMapping(value = "update")
+    public ResponseEntity update(@RequestBody GroupTrainingDto groupTrainingDto){
+        return new ResponseEntity<>(GroupTrainingDto.fromGroupTrainingAdmin(groupTrainingService.update(groupTrainingDto.toGroupTrainingAdminWithId())),HttpStatus.OK);
     }
 }

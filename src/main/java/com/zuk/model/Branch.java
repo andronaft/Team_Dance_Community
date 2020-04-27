@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -33,6 +34,6 @@ public class Branch extends BaseEntity  implements Serializable {
     @Column(name = "img_url")
     private String imgUrl;
 
-    @OneToOne(mappedBy = "branch")
-    private GroupTraining groupTraining;
+    @OneToMany(mappedBy = "branch")
+    private List<GroupTraining> groupTraining;
 }

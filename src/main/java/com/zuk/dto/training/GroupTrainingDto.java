@@ -25,6 +25,21 @@ public class GroupTrainingDto {
     private Timestamp updated;
     private Status status;
 
+
+    public static GroupTrainingDto fromGroupTrainingAdmin(GroupTraining groupTraining){
+        GroupTrainingDto groupTrainingDto = new GroupTrainingDto();
+        groupTrainingDto.setId(groupTraining.getId());
+        groupTrainingDto.setName(groupTraining.getName());
+        groupTrainingDto.setBranchId(groupTraining.getBranch().getId());
+        groupTrainingDto.setCapacity(groupTraining.getCapacity());
+        groupTrainingDto.setTime(groupTraining.getTime());
+        groupTrainingDto.setWeekDay(groupTraining.getWeekDay());
+        groupTrainingDto.setCreated(groupTraining.getCreated());
+        groupTrainingDto.setUpdated(groupTraining.getUpdated());
+        groupTrainingDto.setStatus(groupTraining.getStatus());
+        return groupTrainingDto;
+    }
+
     public static GroupTrainingDto fromGroupTraining(GroupTraining groupTraining){
         GroupTrainingDto groupTrainingDto = new GroupTrainingDto();
         groupTrainingDto.setId(groupTraining.getId());
@@ -44,9 +59,31 @@ public class GroupTrainingDto {
         return groupTrainingDtoArrayList;
     }
 
+    public static ArrayList<GroupTrainingDto> fromArrayGroupTrainingAdmin(List<GroupTraining> groupTrainingsList){
+        ArrayList<GroupTrainingDto>  groupTrainingDtoArrayList = new ArrayList<>();
+        for (GroupTraining groupTraining:groupTrainingsList){
+            groupTrainingDtoArrayList.add(fromGroupTrainingAdmin(groupTraining));
+        }
+        return groupTrainingDtoArrayList;
+    }
+
     public GroupTraining toGroupTrainingAdmin(){
         GroupTraining groupTraining = new GroupTraining();
         //groupTraining.setId(id);
+        groupTraining.setName(name);
+        groupTraining.setLocation(location);
+        Branch branch = new Branch();branch.setId(branchId);
+        groupTraining.setBranch(branch);
+        groupTraining.setCapacity(capacity);
+        groupTraining.setTime(time);
+        groupTraining.setWeekDay(weekDay);
+        groupTraining.setStatus(status);
+        return groupTraining;
+    }
+
+    public GroupTraining toGroupTrainingAdminWithId(){
+        GroupTraining groupTraining = new GroupTraining();
+        groupTraining.setId(id);
         groupTraining.setName(name);
         groupTraining.setLocation(location);
         Branch branch = new Branch();branch.setId(branchId);
