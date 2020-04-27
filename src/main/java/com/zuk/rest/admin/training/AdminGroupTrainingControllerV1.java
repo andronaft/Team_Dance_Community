@@ -1,6 +1,7 @@
 package com.zuk.rest.admin.training;
 
 import com.zuk.dto.training.GroupTrainingDto;
+import com.zuk.model.WeekDay;
 import com.zuk.service.GroupTrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,13 +32,13 @@ public class AdminGroupTrainingControllerV1 {
     }
 
     @GetMapping(value = "findByDay")
-    public ResponseEntity findByDay(@RequestBody GroupTrainingDto groupTrainingDto){
+    public ResponseEntity findByDay(@RequestParam WeekDay weekDay){
 
-        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTrainingAdmin(groupTrainingService.findByDay(groupTrainingDto.getWeekDay())), HttpStatus.OK);
+        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTrainingAdmin(groupTrainingService.findByDay(weekDay)), HttpStatus.OK);
     }
     @GetMapping(value = "findByBranch")
-    public ResponseEntity findByBranch(@RequestBody GroupTrainingDto groupTrainingDto){
-        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTrainingAdmin(groupTrainingService.findByBranch(groupTrainingDto.getBranchId())), HttpStatus.OK);
+    public ResponseEntity findByBranch(@RequestParam Long branchId){
+        return new ResponseEntity<>(GroupTrainingDto.fromArrayGroupTrainingAdmin(groupTrainingService.findByBranch(branchId)), HttpStatus.OK);
     }
 
     @PostMapping(value = "create")
