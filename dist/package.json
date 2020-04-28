@@ -1,0 +1,13 @@
+{
+    "name": "TDC",
+    "version": "1.0.0",
+    "description": "Heroku App",
+    "author": "gearmobile",
+    "private": true,
+    "scripts": {
+        "postinstall": "npm install express"
+    },
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}
