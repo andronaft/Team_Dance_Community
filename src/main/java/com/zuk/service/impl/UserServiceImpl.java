@@ -145,4 +145,11 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
         log.info("IN delete - user with id: {} successfully deleted",id);
     }
+
+    @Override
+    public User findTrainerByUsername(String username) {
+        Role roleUser = roleRepository.findByName("ROLE_TRAINER");
+        User user = userRepository.findByUsernameAndRolesEquals(username,roleUser);
+        return user;
+    }
 }

@@ -34,4 +34,8 @@ public interface UserService {
     User setRoleTrainer(Long id);
 
     void delete(Long id);
+
+
+
+    User findTrainerByUsername(String username);
 }
