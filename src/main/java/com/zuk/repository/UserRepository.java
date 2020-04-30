@@ -1,5 +1,6 @@
 package com.zuk.repository;
 
+import com.zuk.model.Role;
 import com.zuk.model.User;
 import org.hibernate.annotations.SQLUpdate;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByFirstNameAndLastName(String firstName, String lastName);
     List<User> findByFirstName(String firstName);
     List<User> findByLastName(String lastName);
+
+
+    User findByUsernameAndRolesEquals(String username, Role role);
+   /* User findByEmail(String email);
+    List<User> findByFirstNameAndLastName(String firstName, String lastName);
+    List<User> findByFirstName(String firstName);
+    List<User> findByLastName(String lastName);*/
 }
