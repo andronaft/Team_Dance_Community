@@ -38,4 +38,17 @@ public interface UserService {
 
 
     User findTrainerByUsername(String username);
+
+    User findTrainerById(Long id);
+
+    User findTrainerByEmail(String email);
+
+    ArrayList<User> findAllTrainer();
+
+    ArrayList<User> findTrainerByFirstName(String firstName);
+
+    ArrayList<User> findTrainerByLastName(String lastName);
+
+    ArrayList<User> findTrainerByFirstNameAndLastName(String firstName, String lastName);
+
 }

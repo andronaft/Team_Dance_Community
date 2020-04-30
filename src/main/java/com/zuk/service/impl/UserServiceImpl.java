@@ -152,4 +152,46 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsernameAndRolesEquals(username,roleUser);
         return user;
     }
+
+    @Override
+    public User findTrainerById(Long id) {
+        Role roleUser = roleRepository.findByName("ROLE_TRAINER");
+        User user = userRepository.getByIdAndRolesEquals(id,roleUser);
+        return user;
+    }
+
+    @Override
+    public User findTrainerByEmail(String email) {
+        Role roleUser = roleRepository.findByName("ROLE_TRAINER");
+        User user = userRepository.findByEmailAndRolesEquals(email,roleUser);
+        return user;
+    }
+
+    @Override
+    public ArrayList<User> findAllTrainer() {
+        Role roleUser = roleRepository.findByName("ROLE_TRAINER");
+        List<User> user = userRepository.findByRolesEquals(roleUser);
+        return (ArrayList<User>) user;
+    }
+
+    @Override
+    public ArrayList<User> findTrainerByFirstName(String firstName) {
+        Role roleUser = roleRepository.findByName("ROLE_TRAINER");
+        List<User> user = userRepository.findByFirstNameAndRolesEquals(firstName,roleUser);
+        return (ArrayList<User>) user;
+    }
+
+    @Override
+    public ArrayList<User> findTrainerByLastName(String lastName) {
+        Role roleUser = roleRepository.findByName("ROLE_TRAINER");
+        List<User> user = userRepository.findByLastNameAndRolesEquals(lastName,roleUser);
+        return (ArrayList<User>) user;
+    }
+
+    @Override
+    public ArrayList<User> findTrainerByFirstNameAndLastName(String firstName, String lastName) {
+        Role roleUser = roleRepository.findByName("ROLE_TRAINER");
+        List<User> user = userRepository.findByFirstNameAndLastNameAndRolesEquals(firstName,lastName,roleUser);
+        return (ArrayList<User>) user;
+    }
 }
