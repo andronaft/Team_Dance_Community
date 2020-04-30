@@ -31,5 +31,7 @@ public interface UserService {
 
     User updatePassword(String password, Long id);
 
+    User setRoleTrainer(Long id);
+
     void delete(Long id);
 }
