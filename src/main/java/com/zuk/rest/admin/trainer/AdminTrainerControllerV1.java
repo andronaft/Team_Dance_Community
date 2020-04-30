@@ -31,15 +31,17 @@ public class AdminTrainerControllerV1 {
     }
 
     @GetMapping(value = "findByFirstName/")
-    public ResponseEntity<List<AdminUserWithRoleDto>> getTrainerByFirstName(@RequestParam String firstName )
+    public ResponseEntity getTrainerByFirstName(@RequestParam String firstName )
     {
         try {
 
-            ArrayList result = userService.findByFirstName(firstName);
-            if (result.size() == 0) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
             Map<Object, Object> response = new HashMap<>();
+            ArrayList result = userService.findTrainerByFirstName(firstName);
+            if (result.size() == 0) {
+                response.put("error","Nothing to show");
+                return new ResponseEntity<>(response,HttpStatus.OK);
+            }
+
 
 
             return new ResponseEntity<>(AdminUserWithRoleDto.fromArrayUser(result), HttpStatus.OK);
@@ -48,15 +50,18 @@ public class AdminTrainerControllerV1 {
         }
     }
     @GetMapping(value = "findByLastName/")
-    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByLastName(@RequestBody UserDto userDto)
+    public ResponseEntity getUserByLastName(@RequestParam String lastName)
     {
         try {
 
-            ArrayList result = userService.findByLastName(userDto.getLastName());
-            if (result.size() == 0) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
             Map<Object, Object> response = new HashMap<>();
+
+            ArrayList result = userService.findTrainerByLastName(lastName);
+            if (result.size() == 0) {
+                response.put("error","Nothing to show");
+                return new ResponseEntity<>(response,HttpStatus.OK);
+            }
+
 
 
             return new ResponseEntity<>(AdminUserWithRoleDto.fromArrayUser(result), HttpStatus.OK);
@@ -65,15 +70,17 @@ public class AdminTrainerControllerV1 {
         }
     }
     @GetMapping(value = "findByFirstNameAndLastName/")
-    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByFirstNameAndLastName(@RequestBody UserDto userDto)
+    public ResponseEntity getUserByFirstNameAndLastName(@RequestParam String firstName, String lastName)
     {
         try {
-
-            ArrayList result = userService.findByFirstNameAndLastName(userDto.getFirstName(),userDto.getLastName());
-            if (result.size() == 0) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
             Map<Object, Object> response = new HashMap<>();
+
+            ArrayList result = userService.findTrainerByFirstNameAndLastName(firstName,lastName);
+            if (result.size() == 0) {
+                response.put("error","Nothing to show");
+                return new ResponseEntity<>(response,HttpStatus.OK);
+            }
+
 
 
             return new ResponseEntity<>(AdminUserWithRoleDto.fromArrayUser(result), HttpStatus.OK);
@@ -82,26 +89,28 @@ public class AdminTrainerControllerV1 {
         }
     }
     @GetMapping(value = "findByUsername/")
-    public ResponseEntity<AdminUserWithRoleDto> getTrainerByUsername(@RequestParam String username)
+    public ResponseEntity getTrainerByUsername(@RequestParam String username)
     {
         User user = userService.findTrainerByUsername(username);
+        if(user==null){
+            Map<Object, Object> response = new HashMap<>();
+            response.put("error","Nothing to show");
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
         return new ResponseEntity<>(AdminUserWithRoleDto.fromUser(user), HttpStatus.OK);
     }
 
-    @GetMapping(value = "findByEmail/")
-    public ResponseEntity<AdminUserWithRoleDto> getUserByEmail(@RequestBody UserDto userDto)
-    {
-        Long id = userService.findByEmail(userDto.getEmail()).getId();
-        return getUserById(id);
-    }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<AdminUserWithRoleDto> getUserById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity getTrainerById(@PathVariable(name = "id") Long id) {
         try {
-            User user = userService.findById(id);
+            User user = userService.findTrainerById(id);
+
+            Map<Object, Object> response = new HashMap<>();
 
             if (user == null) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                response.put("error","Nothing to show");
+                return new ResponseEntity<>(response,HttpStatus.OK);
             }
 
             AdminUserWithRoleDto result = AdminUserWithRoleDto.fromUser(user);
@@ -114,13 +123,15 @@ public class AdminTrainerControllerV1 {
     }
 
     @GetMapping(value = "")
-    public ResponseEntity<List<AdminUserWithRoleDto>> getUser() {
+    public ResponseEntity getUser() {
         try {
 
-            List<User> userList = userService.getAll();
+            List<User> userList = userService.findAllTrainer();
 
+            Map<Object, Object> response = new HashMap<>();
             if (userList.size() == 0) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                response.put("error","Nothing to show");
+                return new ResponseEntity<>(response,HttpStatus.OK);
             }
 
             ArrayList<AdminUserWithRoleDto> result = AdminUserWithRoleDto.fromArrayUser(userList);

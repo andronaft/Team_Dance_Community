@@ -32,6 +32,6 @@ public class BranchControllerV1 {
     @GetMapping(value = "findById/")
     public ResponseEntity findById(@RequestParam Long id) {
         System.out.println("good");
-        return new ResponseEntity<>(branchService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(BranchDto.fromBranch(branchService.findById(id)), HttpStatus.OK);
     }
 }

@@ -30,11 +30,11 @@ public class AdminUserControllerV1 {
 
 
     @GetMapping(value = "findByFirstName/")
-    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByFirstName(@RequestBody UserDto userDto)
+    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByFirstName(@RequestParam String firstName)
     {
         try {
 
-            ArrayList result = userService.findByFirstName(userDto.getFirstName());
+            ArrayList result = userService.findByFirstName(firstName);
             if (result.size() == 0) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
@@ -47,11 +47,11 @@ public class AdminUserControllerV1 {
         }
     }
     @GetMapping(value = "findByLastName/")
-    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByLastName(@RequestBody UserDto userDto)
+    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByLastName(@RequestParam String lastName)
     {
         try {
 
-            ArrayList result = userService.findByLastName(userDto.getLastName());
+            ArrayList result = userService.findByLastName(lastName);
             if (result.size() == 0) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
@@ -64,11 +64,11 @@ public class AdminUserControllerV1 {
         }
     }
     @GetMapping(value = "findByFirstNameAndLastName/")
-    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByFirstNameAndLastName(@RequestBody UserDto userDto)
+    public ResponseEntity<List<AdminUserWithRoleDto>> getUserByFirstNameAndLastName(@RequestParam String firstName,@RequestParam String lastName)
     {
         try {
 
-            ArrayList result = userService.findByFirstNameAndLastName(userDto.getFirstName(),userDto.getLastName());
+            ArrayList result = userService.findByFirstNameAndLastName(firstName,lastName);
             if (result.size() == 0) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
@@ -81,16 +81,16 @@ public class AdminUserControllerV1 {
         }
     }
     @GetMapping(value = "findByUsername/")
-    public ResponseEntity<AdminUserWithRoleDto> getUserByUsername(@RequestBody UserDto userDto)
+    public ResponseEntity<AdminUserWithRoleDto> getUserByUsername(@RequestParam String username)
     {
-        Long id = userService.findByUsername(userDto.getUsername()).getId();
+        Long id = userService.findByUsername(username).getId();
         return getUserById(id);
     }
 
     @GetMapping(value = "findByEmail/")
-    public ResponseEntity<AdminUserWithRoleDto> getUserByEmail(@RequestBody UserDto userDto)
+    public ResponseEntity<AdminUserWithRoleDto> getUserByEmail(@RequestParam String email)
     {
-        Long id = userService.findByEmail(userDto.getEmail()).getId();
+        Long id = userService.findByEmail(email).getId();
         return getUserById(id);
     }
 
@@ -131,9 +131,9 @@ public class AdminUserControllerV1 {
     }
 
     @GetMapping(value = "activateUser/")
-    public ResponseEntity activateUser(@RequestBody UserDto userDto) {
+    public ResponseEntity activateUser(@RequestParam Long id) {
         try {
-            return new ResponseEntity<>(AdminUserWithRoleDto.fromUser(userService.activateUser(userDto.getId())), HttpStatus.OK);
+            return new ResponseEntity<>(AdminUserWithRoleDto.fromUser(userService.activateUser(id)), HttpStatus.OK);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }

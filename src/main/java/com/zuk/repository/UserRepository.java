@@ -2,6 +2,7 @@ package com.zuk.repository;
 
 import com.zuk.model.Role;
 import com.zuk.model.User;
+import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.SQLUpdate;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,10 +16,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByFirstName(String firstName);
     List<User> findByLastName(String lastName);
 
+    List<User> findByRolesEquals(Role role);
 
+
+    User getByIdAndRolesEquals(Long id, Role role);
     User findByUsernameAndRolesEquals(String username, Role role);
-   /* User findByEmail(String email);
-    List<User> findByFirstNameAndLastName(String firstName, String lastName);
-    List<User> findByFirstName(String firstName);
-    List<User> findByLastName(String lastName);*/
+    User findByEmailAndRolesEquals(String email, Role role);
+    List<User> findByFirstNameAndLastNameAndRolesEquals(String firstName,String lastName ,Role role);
+    List<User> findByFirstNameAndRolesEquals(String firstName , Role role);
+    List<User> findByLastNameAndRolesEquals(String lastName, Role role);
 }
