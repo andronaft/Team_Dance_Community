@@ -22,7 +22,7 @@ public class AdminGroupTrainingControllerV1 {
     @GetMapping(value = "{id}")
     public ResponseEntity findById(@PathVariable(name = "id") Long id){
 
-        return new ResponseEntity<>(GroupTrainingDto.fromGroupTrainingAdmin(groupTrainingService.findById(id)), HttpStatus.OK);
+        return new ResponseEntity<>(GroupTrainingDto.fromGroupTrainingWithTrainer(groupTrainingService.findById(id)), HttpStatus.OK);
     }
 
     @GetMapping(value = "")
