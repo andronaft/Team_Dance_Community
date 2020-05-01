@@ -5,8 +5,31 @@
 
       <main>
         <h3>Бранчи</h3>
-        <div class="profile">
-            {{this.$route.query}}
+        <div class="branches" v-if="this.$route.query.id">
+            <!-- {{this.$route.query}} -->
+
+              <h3>Групповые тренировки</h3>
+  <div class="groupTrainings">
+      <table>
+          <tr>
+              <th>Название</th>
+              <th>Время</th>
+              <th>День</th>
+          </tr>
+          <tr v-for="training in trainings" :key="training.id">
+              <td>{{training.name}}</td>
+              <td>{{training.time}}</td>
+              <td>{{training.weekDay}}</td>
+          </tr>
+
+
+      </table>
+  </div>
+              
+          
+        </div>
+        <div v-else>
+          {{branches}}
         </div>
       </main>
     </div>
@@ -20,42 +43,79 @@ import store from "../store";
 
 export default {
     name: 'Home',
-    components: {},
-    data: () => ({
-        trainings: ''
-    }),
-    created() {
+      components: {},
+      data: () => ({
+        trainings: '',
+        branches: ''
+      }),
+      created() {
+        this.getAllBranches()
         this.getTrainings()
-    },
-    methods: {
+      },
+      methods: {
+        getAllBranches() {
+          this.$axios.get('/api/v1/branch/', {
+              params: {
+              }
+            }, {
+              headers: {
+                "Access-Control-Allow-Origin": "*"
+              }
+            }).then((response) => {
+              this.branches = response.data;
+              console.log("response", response);
+
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        },
         getTrainings() {
-            this.$axios.get('/api/v1/training/groupTraining/findByBranch',{
-                params: {
-                    branchId: this.$route.query.id
-                }
-            },{
-    headers: { "Access-Control-Allow-Origin": "*" }
-}).then( (response) => {
-    this.trainings = response.data;
-    console.log("response",response);
-   
-  })
-  .catch( (error) => {
-    console.log(error);
-  });
+          this.$axios.get('/api/v1/training/groupTraining/findByBranch', {
+              params: {
+                branchId: this.$route.query.id
+              }
+            }, {
+              headers: {
+                "Access-Control-Allow-Origin": "*"
+              }
+            }).then((response) => {
+              this.trainings = response.data;
+              console.log("response", response);
+
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }
+      }
     }
-}
 </script>
 
 
 <style lang="scss" scoped>
-  .main {
+h1 {
+    color: var(--color-black);
 
-  }
+}
 
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    color: #222;
+}
 
-
-
-
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr {
+  background-color: #818181;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
 </style>

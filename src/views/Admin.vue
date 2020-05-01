@@ -16,7 +16,7 @@
 <script>
 
 import HelloWorld from '@/components/HelloWorld.vue'
-import Users from '@/components/admin/Users.vue'
+import Users from '@/components/admin/Users/Users.vue'
 import Branches from '@/components/admin/Branches/Branches.vue'
 import Bids from '@/components/admin/Bids/Bids.vue'
 
