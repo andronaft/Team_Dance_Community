@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -60,15 +61,22 @@ public class GroupTrainingServiceImpl implements GroupTrainingService {
     }
 
     @Override
-    public GroupTraining saveWithGroupTrainingTrainer(GroupTraining groupTraining) {
-        User trainer = userService.findTrainerById((long) 2);
-        ArrayList<User> listTrainer = new ArrayList<>();
-        listTrainer.add(trainer);
-        groupTraining.setTrainer(listTrainer);
+    public GroupTraining saveWithGroupTrainingTrainer(Long id , List<Long> trainerIds) {
 
-        GroupTraining findGroupTraining = groupTrainingRepository.getOne(groupTraining.getId());
 
-        groupTraining.setCreated(findGroupTraining.getCreated());
-        return groupTrainingRepository.save(groupTraining);
+        ArrayList<User> trainerList = new ArrayList<>();
+
+        for (Long idTrainer:trainerIds){
+            System.out.println(idTrainer);
+            trainerList.add(userService.findById(idTrainer));
+        }
+
+
+
+        GroupTraining findGroupTraining = groupTrainingRepository.getOne(id);
+
+        findGroupTraining.setCreated(findGroupTraining.getCreated());
+        findGroupTraining.setTrainer(trainerList);
+        return groupTrainingRepository.save(findGroupTraining);
     }
 }
