@@ -7,7 +7,7 @@
         <h3>Registration</h3>
         <div class="login-form">
           <form @submit.prevent="register">
-            <label for="name">Username  <span class="status green" v-if="usernamestatus == false">Свободен</span><span class="status" v-else>Занят</span></label>
+            <label for="name" :class="{green: usernamestatus == false, red: usernamestatus == true}">Username</label>
             <div>
               <input id="name" type="text" v-model="username" required autofocus v-on:blur="checkUsername">
             </div>
@@ -19,7 +19,7 @@
             <div>
               <input id="firstName" type="text" v-model="lastName" required>
             </div>
-            <label for="email">E-Mail Address <span class="status green" v-if="usernamestatus == false">Свободен</span><span class="status" v-else>Занят</span></label>
+            <label for="email" :class="{green: emailstatus == false, red: emailstatus == true}">E-Mail Address</label>
             <div>
               <input id="email" type="email" v-model="email" required  v-on:blur="checkEmail">
             </div>
@@ -199,5 +199,18 @@ export default {
   border:none;
   cursor: pointer;
   padding: 15px;
+}
+
+.status {
+  
+}
+
+label {
+  &.green {
+    color: var(--color-successful);
+  }
+  &.red {
+    color: var(--color-err);
+  }
 }
 </style>
