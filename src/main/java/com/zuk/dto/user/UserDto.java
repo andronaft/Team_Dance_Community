@@ -53,6 +53,14 @@ public class UserDto {
         userDto.setEmail(user.getEmail());
         userDto.setStatus(user.getStatus());
         userDto.setRole(role);
+        return userDto;
+    }
+
+    public static UserDto fromTrainerToPublicDto(User user) {
+        UserDto userDto = new UserDto();
+
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
 
         return userDto;
     }

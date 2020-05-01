@@ -4,6 +4,7 @@ import com.zuk.model.GroupTraining;
 import com.zuk.model.WeekDay;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface GroupTrainingService {
    GroupTraining findById(Long id);
@@ -15,5 +16,5 @@ public interface GroupTrainingService {
    GroupTraining update(GroupTraining groupTraining);
    //ArraList<GroupTraining> findByLocation(Long id)
 
-   GroupTraining saveWithGroupTrainingTrainer(GroupTraining groupTraining);
+   GroupTraining saveWithGroupTrainingTrainer(Long id, List<Long> trainerIds);
 }

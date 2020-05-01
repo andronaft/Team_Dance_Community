@@ -22,7 +22,7 @@ public class AdminGroupTrainingControllerV1 {
     @GetMapping(value = "{id}")
     public ResponseEntity findById(@PathVariable(name = "id") Long id){
 
-        return new ResponseEntity<>(GroupTrainingDto.fromGroupTrainingWithTrainer(groupTrainingService.findById(id)), HttpStatus.OK);
+        return new ResponseEntity<>(GroupTrainingDto.fromGroupTrainingWithTrainer (groupTrainingService.findById(id)), HttpStatus.OK);
     }
 
     @GetMapping(value = "")
@@ -53,6 +53,6 @@ public class AdminGroupTrainingControllerV1 {
 
     @PostMapping(value = "setTrainer")
     public ResponseEntity setTrainer(@RequestBody GroupTrainingDto groupTrainingDto){
-        return new ResponseEntity<>(GroupTrainingDto.fromGroupTrainingAdmin(groupTrainingService.saveWithGroupTrainingTrainer(groupTrainingDto.toGroupTrainingAdminWithId())),HttpStatus.OK);
+        return new ResponseEntity<>(GroupTrainingDto.fromGroupTrainingWithTrainer(groupTrainingService.saveWithGroupTrainingTrainer(groupTrainingDto.getId(),groupTrainingDto.getTrainerIds())),HttpStatus.OK);
     }
 }
