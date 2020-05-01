@@ -109,4 +109,13 @@ main.main {
 .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
   opacity: 0;
 }
+
+.msg {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: var(--color-main);
+  &.err {
+    background-color: var(--color-err);
+  }
+}
 </style>

@@ -12,7 +12,6 @@
     <th>Status</th>
     <th>Roles</th>
     <th>Edit</th>
-    <th>Set Trainer</th>
   </tr>
   <tr v-for="user in allUsers" v-bind:key="user.id">
     <td>{{user.id}}</td>
@@ -23,8 +22,6 @@
     <td>{{user.status}}</td>
     <td>{{user.roles}}</td>
     <td><button @click="edit(user)">Edit</button></td>
-    <td><button @click="setTrainer(user)">Сделать тренером</button></td>
-
   </tr>
 
 <modal name="editUser" @before-open="beforeOpen"  :height="'auto'">
@@ -76,7 +73,6 @@ export default {
   },
   data() {
     return {
-      resultedUsers: [],
       allUsers: [],
       user: []
     }
@@ -112,7 +108,6 @@ export default {
     },
     onClickChild(value) {
       console.log(value) // someValue
-      this.allUsers = value
     },
     getAllUsers() {
       this.$axios.get('/api/v1/admin/users/', {
@@ -121,26 +116,6 @@ export default {
           }
         }).then((response) => {
           this.allUsers = response.data;
-          this.resultedUsers = response.data;
-          console.log("response", response);
-
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    setTrainer(user) {
-      this.$axios.get('/api/v1/admin/trainer/setRoleTrainer', {
-        params: {
-            "id": user.id
-        }
-        
-      }, {
-          headers: {
-            "Access-Control-Allow-Origin": "*"
-          }
-        }).then((response) => {
-
           console.log("response", response);
 
         })

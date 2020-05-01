@@ -5,6 +5,9 @@
             <router-link class="nav-link" @click.native.prevent="navClick('Users')" to="/admin">Пользователи</router-link>
             <router-link class="nav-link" @click.native.prevent="navClick('Branches')" to="/admin">Бранчи</router-link>
             <router-link class="nav-link" @click.native.prevent="navClick('Bids')" to="/admin">Заявки</router-link>
+            <router-link class="nav-link" @click.native.prevent="navClick('GroupTraining')" to="/admin">Груповые тренировки</router-link>
+            <router-link class="nav-link" @click.native.prevent="navClick('Trainers')" to="/admin">Тренера</router-link>
+
         </nav>
     </aside>
     <main>
@@ -19,10 +22,13 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import Users from '@/components/admin/Users/Users.vue'
 import Branches from '@/components/admin/Branches/Branches.vue'
 import Bids from '@/components/admin/Bids/Bids.vue'
+import Trainers from '@/components/admin/Trainers/Trainers.vue'
+import GroupTraining from '@/components/admin/GroupTrainings/GroupTraining.vue'
+
 
 export default {
     components: {
-        HelloWorld, Users, Branches, Bids
+        HelloWorld, Users, Branches, Bids, GroupTraining, Trainers
     },
     data() {
         return {
