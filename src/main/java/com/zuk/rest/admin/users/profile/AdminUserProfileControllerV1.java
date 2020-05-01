@@ -30,12 +30,12 @@ public class AdminUserProfileControllerV1 {
     }
 
 
-    @PostMapping(value = "getProfile/")
-    public ResponseEntity getUserProfileById(@RequestBody UserDto userDto){
+    @GetMapping(value = "getProfile/")
+    public ResponseEntity getUserProfileById(@RequestParam Long id){
 
 
         try{
-            UserProfile userProfile = userProfileService.findById(userDto.getId());
+            UserProfile userProfile = userProfileService.findById(id);
             if(userProfile == null){
                 throw new BadCredentialsException("Invalid username");//return new ResponseEntity(HttpStatus.NO_CONTENT);
             }

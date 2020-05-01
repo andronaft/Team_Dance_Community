@@ -147,6 +147,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ArrayList<User> findByContains(String string) {
+        ArrayList<User> list = new ArrayList<>();
+        //User
+        return null;
+    }
+
+    @Override
     public User findTrainerByUsername(String username) {
         Role roleUser = roleRepository.findByName("ROLE_TRAINER");
         User user = userRepository.findByUsernameAndRolesEquals(username,roleUser);

@@ -35,7 +35,7 @@ public interface UserService {
 
     void delete(Long id);
 
-
+    ArrayList<User> findByContains(String string);
 
     User findTrainerByUsername(String username);
 
