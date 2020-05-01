@@ -78,7 +78,7 @@ public class AdminUserProfileControllerV1 {
             response.put("img_url",userProfile.getRating());
             response.put("rating",userProfile.getRating());
             response.put("level",userProfile.getLevel());
-            response.put("created",userProfile.getCreated().toLocalDateTime());
+            response.put("created",userProfile.getCreated());
             response.put("updated",userProfile.getUpdated());
             response.put("status",userProfile.getStatus());
             return new ResponseEntity(response, HttpStatus.OK);
