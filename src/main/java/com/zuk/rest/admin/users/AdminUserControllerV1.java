@@ -29,6 +29,27 @@ public class AdminUserControllerV1 {
     }
 
 
+    @GetMapping(value = "findBySomething/")
+    public ResponseEntity getUserByContains(@RequestParam String something)
+    {
+        try {
+
+            ArrayList result = userService.findByContains(something);
+            if (result.size() == 0) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            Map<Object, Object> response = new HashMap<>();
+
+
+            return new ResponseEntity<>(AdminUserWithRoleDto.fromArrayUser(result), HttpStatus.OK);
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid username or password");
+        }
+    }
+
+
+
+
     @GetMapping(value = "findByFirstName/")
     public ResponseEntity<List<AdminUserWithRoleDto>> getUserByFirstName(@RequestParam String firstName)
     {
@@ -139,4 +160,6 @@ public class AdminUserControllerV1 {
         }
 
     }
+
+
 }

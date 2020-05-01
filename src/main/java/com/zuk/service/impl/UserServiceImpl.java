@@ -150,18 +150,53 @@ public class UserServiceImpl implements UserService {
     public ArrayList<User> findByContains(String string) {
         ArrayList<User> list = new ArrayList<>();
 
-        User userByUsername = userRepository.findByUsernameContains(string);
-        if(userByUsername != null){
-            list.add(userByUsername);
+        try{
+            User userById = userRepository.getOne(Long.valueOf(string));
+            if(userById != null){
+                list.add(userById);
+            }
+        }catch (Exception e){
+
         }
 
-        User userByEmail = userRepository.findByEmail(string);
-        if(userByUsername != null ){
-            list.add(userByEmail);
+
+        try{
+            User userByUsername = userRepository.findByUsernameContains(string);
+            if(userByUsername != null){
+                list.add(userByUsername);
+            }
+        }catch (Exception e){
+
+        }
+
+        try{
+            User userByEmail = userRepository.findByEmailContains(string);
+            if(userByEmail != null ){
+                list.add(userByEmail);
+            }
+        }catch (Exception e){
+
         }
 
 
-        return null;
+        try{
+            ArrayList<User> listByfirstName = (ArrayList<User>) userRepository.findByFirstNameContains(string);
+            for (User user:listByfirstName) {
+                list.add(user);
+            }
+        }catch (Exception e){
+
+        }
+
+        try{
+            ArrayList<User> listByLastName = (ArrayList<User>) userRepository.findByLastNameContains(string);
+            for (User user:listByLastName) {
+                list.add(user);
+            }
+        }catch (Exception e){
+
+        }
+        return list;
     }
 
     @Override
