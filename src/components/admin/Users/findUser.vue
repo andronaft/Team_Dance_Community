@@ -20,14 +20,16 @@ export default {
   },
   methods: {
       getByFirstName() {
-                              this.$axios.get('/api/v1/admin/users/findByLastName/',{
+                              this.$axios.get('/api/v1/admin/users/findBySomething/',{
               params: {
-                "lastName":"surname"
+                "something": this.inputData
               }
             },{
     headers: { "Access-Control-Allow-Origin": "*" }
 }).then( (response) => {
     this.data = response.data;
+    this.$emit('clicked', this.data )
+
     console.log("response",response);
    
   })
@@ -37,7 +39,7 @@ export default {
       },
       getData() {
           this.getByFirstName()
-          this.$emit('clicked', 'someValue')
+          
 //                     this.$axios.get('/api/v1/admin/users/',{
 //     headers: { "Access-Control-Allow-Origin": "*" }
 // }).then( (response) => {
