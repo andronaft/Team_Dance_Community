@@ -14,4 +14,6 @@ public interface GroupTrainingService {
    GroupTraining create(GroupTraining groupTraining);
    GroupTraining update(GroupTraining groupTraining);
    //ArraList<GroupTraining> findByLocation(Long id)
+
+   GroupTraining saveWithGroupTrainingTrainer(GroupTraining groupTraining);
 }

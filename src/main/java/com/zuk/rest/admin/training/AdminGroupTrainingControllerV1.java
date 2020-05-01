@@ -50,4 +50,9 @@ public class AdminGroupTrainingControllerV1 {
     public ResponseEntity update(@RequestBody GroupTrainingDto groupTrainingDto){
         return new ResponseEntity<>(GroupTrainingDto.fromGroupTrainingAdmin(groupTrainingService.update(groupTrainingDto.toGroupTrainingAdminWithId())),HttpStatus.OK);
     }
+
+    @PostMapping(value = "setTrainer")
+    public ResponseEntity setTrainer(@RequestBody GroupTrainingDto groupTrainingDto){
+        return new ResponseEntity<>(GroupTrainingDto.fromGroupTrainingAdmin(groupTrainingService.saveWithGroupTrainingTrainer(groupTrainingDto.toGroupTrainingAdminWithId())),HttpStatus.OK);
+    }
 }

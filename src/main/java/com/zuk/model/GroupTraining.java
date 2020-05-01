@@ -35,5 +35,10 @@ public class GroupTraining extends BaseEntity {
     @Column(name = "week_day")
     private WeekDay weekDay;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(schema = "tdcbd" ,name = "group_training_trainer",
+            joinColumns = {@JoinColumn(name = "group_training_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "trainer_id", referencedColumnName = "id")})
+    private List<User> trainer;
 
 }
