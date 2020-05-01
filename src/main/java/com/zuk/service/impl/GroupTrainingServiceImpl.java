@@ -65,6 +65,10 @@ public class GroupTrainingServiceImpl implements GroupTrainingService {
         ArrayList<User> listTrainer = new ArrayList<>();
         listTrainer.add(trainer);
         groupTraining.setTrainer(listTrainer);
+
+        GroupTraining findGroupTraining = groupTrainingRepository.getOne(groupTraining.getId());
+
+        groupTraining.setCreated(findGroupTraining.getCreated());
         return groupTrainingRepository.save(groupTraining);
     }
 }

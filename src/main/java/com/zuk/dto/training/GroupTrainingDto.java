@@ -24,6 +24,7 @@ public class GroupTrainingDto {
     private Timestamp created;
     private Timestamp updated;
     private Status status;
+    private List<Long> trainerIds;
 
 
     public static GroupTrainingDto fromGroupTrainingAdmin(GroupTraining groupTraining){
@@ -40,6 +41,16 @@ public class GroupTrainingDto {
         return groupTrainingDto;
     }
 
+    public static GroupTrainingDto fromGroupTrainingWithTrainer(GroupTraining groupTraining){
+        GroupTrainingDto groupTrainingDto = fromGroupTrainingAdmin(groupTraining);
+        List<User> list =  groupTraining.getTrainer();
+        List<Long> ids = new ArrayList<>();
+        for(User user:list){
+            ids.add(user.getId());
+        }
+        groupTrainingDto.setTrainerIds(ids);
+        return groupTrainingDto;
+    }
     public static GroupTrainingDto fromGroupTraining(GroupTraining groupTraining){
         GroupTrainingDto groupTrainingDto = new GroupTrainingDto();
         groupTrainingDto.setId(groupTraining.getId());
@@ -62,7 +73,7 @@ public class GroupTrainingDto {
     public static ArrayList<GroupTrainingDto> fromArrayGroupTrainingAdmin(List<GroupTraining> groupTrainingsList){
         ArrayList<GroupTrainingDto>  groupTrainingDtoArrayList = new ArrayList<>();
         for (GroupTraining groupTraining:groupTrainingsList){
-            groupTrainingDtoArrayList.add(fromGroupTrainingAdmin(groupTraining));
+            groupTrainingDtoArrayList.add(fromGroupTrainingWithTrainer(groupTraining));
         }
         return groupTrainingDtoArrayList;
     }
