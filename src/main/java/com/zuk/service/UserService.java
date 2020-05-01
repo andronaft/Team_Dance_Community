@@ -51,4 +51,6 @@ public interface UserService {
 
     ArrayList<User> findTrainerByFirstNameAndLastName(String firstName, String lastName);
 
+    //User saveWithGroupTrainingService(User user);
+
 }
