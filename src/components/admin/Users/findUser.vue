@@ -1,28 +1,6 @@
 <template>
   <div class="users">
-    <h1>Пользователи</h1>
-    <table>
-  <tr>
-    <th>ID</th>
-    <th>Username</th>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Email</th>
-    <th>Status</th>
-    <th>Roles</th>
-  </tr>
-  <tr v-for="user in allUsers" v-bind:key="user.id">
-    <td>{{user.id}}</td>
-    <td>{{user.username}}</td>
-    <td>{{user.firstName}}</td>
-    <td>{{user.lastName}}</td>
-    <td>{{user.email}}</td>
-    <td>{{user.status}}</td>
-    <td>{{user.roles}}</td>
-  </tr>
-
-
-</table>
+  <input type="text" v-model="inputData" @input="getData()">
   </div>
 </template>
 
@@ -34,24 +12,42 @@ export default {
   },
   data() {
     return {
-        allUsers: []
+        inputData: '',
+        data: []
     }
   },
   created() {
-      this.getAllUsers()
   },
   methods: {
-      getAllUsers() {
-                    this.$axios.get('/api/v1/admin/users/',{
+      getByFirstName() {
+                              this.$axios.get('/api/v1/admin/users/findByLastName/',{
+              params: {
+                "lastName":"surname"
+              }
+            },{
     headers: { "Access-Control-Allow-Origin": "*" }
 }).then( (response) => {
-    this.allUsers = response.data;
+    this.data = response.data;
     console.log("response",response);
    
   })
   .catch( (error) => {
     console.log(error);
   });
+      },
+      getData() {
+          this.getByFirstName()
+          this.$emit('clicked', 'someValue')
+//                     this.$axios.get('/api/v1/admin/users/',{
+//     headers: { "Access-Control-Allow-Origin": "*" }
+// }).then( (response) => {
+//     this.allUsers = response.data;
+//     console.log("response",response);
+   
+//   })
+//   .catch( (error) => {
+//     console.log(error);
+//   });
       }
   }
 }

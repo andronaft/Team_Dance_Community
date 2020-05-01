@@ -137,7 +137,7 @@ export default {
           position: absolute;
     left: 0;
     top: 100%;
-    display: flex;
+    display: none;
     background: var(--color-main);
     flex-direction: column;
         }
@@ -178,4 +178,15 @@ a {
   }
 }
 
+
+a.link {
+  &:hover {
+    .dropdown {
+      display: flex;
+    }
+  }
+  .dropdown {
+    display: none;
+  }
+}
 </style>

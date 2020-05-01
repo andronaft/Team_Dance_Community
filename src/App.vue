@@ -6,7 +6,8 @@
          
   <!-- 123{{user}} -->
   <!-- <button @click="logout">Logout</button> -->
-      <router-view/>
+     <router-view :key="$route.fullPath"></router-view>
+
     </main>
   </div>
 </template>
@@ -29,14 +30,32 @@ export default {
   },
   created() {
     console.log(this.$store.state)
-    this.$axios.interceptors.response.use(undefined, function (err) {
-      return new Promise(function (resolve, reject) {
-        if (err.status === 500 && err.config && !err.config.__isRetryRequest) {
-          this.$store.dispatch(logout)
-        }
-        throw err;
-      });
-    });
+    this.$axios.interceptors.response.use((response) => {
+    if(response.status === 403) {
+        //  alert("You are not authorized");
+    }
+    return response;
+}, (error) => {
+    if (error.response && error.response.data) {
+      if(error.response.status == 403) {
+         this.$store.dispatch('logout')
+      }
+      console.log("RESPONSE ERR",error.response.status)
+        return Promise.reject(error.response.data);
+    }
+    return Promise.reject(error.message);
+});
+    // this.$axios.interceptors.response.use(undefined,  (err) => {
+    //   return new Promise( (resolve, reject) => {
+
+    //     console.log("ISTOKENALIVE", err.status)
+    //     if (err.status === 500 && err.config && !err.config.__isRetryRequest) {
+    //       this.$store.dispatch(logout)
+    //     }
+        
+    //     throw err;
+    //   });
+    // });
   },
   methods: {
     logout: function () {
