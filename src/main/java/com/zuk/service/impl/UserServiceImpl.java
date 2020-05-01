@@ -149,7 +149,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public ArrayList<User> findByContains(String string) {
         ArrayList<User> list = new ArrayList<>();
-        //User
+
+        User userByUsername = userRepository.findByUsernameContains(string);
+        if(userByUsername != null){
+            list.add(userByUsername);
+        }
+
+        User userByEmail = userRepository.findByEmail(string);
+        if(userByUsername != null ){
+            list.add(userByEmail);
+        }
+
+
         return null;
     }
 
