@@ -18,7 +18,8 @@ public class GroupTrainingDto {
     private String name;
     private Long branchId;
     private int capacity;
-    private String location;
+    //private String location;
+    private Long hallId;
     private Time time;
     private WeekDay weekDay;
     private Timestamp created;
@@ -94,7 +95,9 @@ public class GroupTrainingDto {
         GroupTraining groupTraining = new GroupTraining();
         //groupTraining.setId(id);
         groupTraining.setName(name);
-        groupTraining.setLocation(location);
+        Hall hall = new Hall();hall.setId(hallId);
+        groupTraining.setHall(hall);
+       // groupTraining.setLocation(location);
         Branch branch = new Branch();branch.setId(branchId);
         groupTraining.setBranch(branch);
         groupTraining.setCapacity(capacity);
@@ -108,7 +111,8 @@ public class GroupTrainingDto {
         GroupTraining groupTraining = new GroupTraining();
         groupTraining.setId(id);
         groupTraining.setName(name);
-        groupTraining.setLocation(location);
+        Hall hall = new Hall();hall.setId(hallId);
+        groupTraining.setHall(hall);
         Branch branch = new Branch();branch.setId(branchId);
         groupTraining.setBranch(branch);
         groupTraining.setCapacity(capacity);
