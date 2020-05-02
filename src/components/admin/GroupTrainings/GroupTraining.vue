@@ -3,8 +3,8 @@
     <h1>Груповые тренировки</h1>
 
     <div class="tabs">
-            <div class="tab" @click="setTab('Alltrainings')">Все тренировки</div>
-            <div class="tab" @click="setTab('Addtraining')">Добавить</div>
+            <div class="tab" :class="{active: currentComponent == 'Alltrainings'}" @click="setTab('Alltrainings')">Все тренировки</div>
+            <div class="tab" :class="{active: currentComponent == 'Addtraining'}" @click="setTab('Addtraining')">Добавить</div>
         </div>
            <component :is="currentComponent"/>
 
@@ -49,30 +49,5 @@ h1 {
     color: var(--color-black);
 
 }
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  color: #222;
-}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-.tabs {
-    cursor: pointer;
-    color: var(--color-white);
-    display: flex;
-    .tab {
-        background-color: var(--color-main);
-        padding: 10px;
-    }
-}
 </style>

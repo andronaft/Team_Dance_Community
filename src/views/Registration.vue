@@ -4,35 +4,38 @@
     <div class="main">
 
       <main>
-        <h3>Registration</h3>
+        <h3>Регистрация</h3>
         <div class="login-form">
-          <form @submit.prevent="register">
-            <label for="name" :class="{green: usernamestatus == false, red: usernamestatus == true}">Username</label>
+          <form @submit.prevent="register" class="form">
+            <label for="name" :class="{green: usernamestatus == false, red: usernamestatus == true}">Логин</label>
             <div>
-              <input id="name" type="text" v-model="username" required autofocus v-on:blur="checkUsername">
+              <input id="name" type="text" v-model="username" required autofocus v-on:blur="checkUsername" placeholder="Логин">
             </div>
-            <label for="name">Name</label>
+            <label for="name">Имя</label>
             <div>
-              <input id="name" type="text" v-model="firstName" required>
+              <input id="name" type="text" v-model="firstName" required placeholder="Имя">
             </div>
             <label for="password-confirm">Фамилия</label>
             <div>
-              <input id="firstName" type="text" v-model="lastName" required>
+              <input id="firstName" type="text" v-model="lastName" required placeholder="Фамилия">
             </div>
-            <label for="email" :class="{green: emailstatus == false, red: emailstatus == true}">E-Mail Address</label>
+            <label for="email" :class="{green: emailstatus == false, red: emailstatus == true}">E-Mail</label>
             <div>
-              <input id="email" type="email" v-model="email" required  v-on:blur="checkEmail">
+              <input id="email" type="email" v-model="email" required  v-on:blur="checkEmail" placeholder="E-Mail">
             </div>
-            <label for="password">Password</label>
+            <label for="password">Пароль</label>
             <div>
-              <input id="password" type="password" v-model="password" required>
+              <input id="password" type="password" v-model="password" required placeholder="Пароль">
             </div>
+             <div class="checkbox">
+    <label><input type="checkbox" required> Пользовательское соглашение</label>
+  </div>
             <div>
-              <button class="registeBtn" type="submit">Register</button>
+              <button class="registeBtn" type="submit">Регистрация</button>
             </div>
           </form>
 
-          <button @click="logout">logout</button>
+          <!-- <button @click="logout">logout</button> -->
         </div>
       </main>
     </div>
@@ -151,59 +154,6 @@ export default {
       margin: 0 auto;
     }
   }
-
-
-  .latestnews {
-    display: flex;
-    flex-direction: column;
-    .news__item {
-      padding: 10px;
-      display: flex;
-    }
-    a {
-      color: #fff;
-    }
-  }
-
-  .bottom {
-    padding: 10px 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .boxes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    a {
-      height: 100px;
-      width: 150px;
-    }
-  }
-
-  input[type=text],input[type=email], input[type=firstname], input[type=password]{
-  width: 100%;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  background-color: white;
-  background-repeat: no-repeat;
-  padding: 12px 20px 12px 20px;
-}
-
-
-.registeBtn {
-  width: 100%;
-  margin-top: 10px;
-  background: #000;
-  color: #fff;
-  border:none;
-  cursor: pointer;
-  padding: 15px;
-}
-
-.status {
-  
-}
 
 label {
   &.green {

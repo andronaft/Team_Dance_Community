@@ -1,6 +1,6 @@
 <template>
-  <div class="users">
-  <input type="text" v-model="inputData" @input="getData()">
+  <div class="findUser">
+  <input type="text" v-model="inputData" @input="getData()" placeholder="Поиск по всем полям...">
   </div>
 </template>
 
@@ -61,20 +61,7 @@ h1 {
     color: var(--color-black);
 
 }
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  color: #222;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
+.findUser {
+    margin-bottom: 10px;
 }
 </style>

@@ -61,11 +61,15 @@ export default {
             //flex: 1;
             nav {
                 .nav-link {
+                    transition: all .4s ease-in-out;
                     display: block;
                     background-color: var(--color-main);
                     color: #fff;
                     padding: 20px;
-                    text-decoration: none;;
+                    text-decoration: none;
+                    &:hover {
+                        background: darken(#FF9F1C, 10%);
+                    }
                 }
             }
         }
@@ -74,4 +78,48 @@ export default {
             padding: 0 20px;
         }
     }
+</style>
+
+
+<style lang="scss">
+
+.tabs {
+    cursor: pointer;
+    color: var(--color-white);
+    display: flex;
+    margin-bottom: 10px;
+    .tab {
+        background-color: var(--color-main);
+        padding: 10px;
+        &:hover {
+             background-color: lighten(#FF9F1C, 10%);
+        }
+        &.active {
+            background-color: lighten(#FF9F1C, 10%);
+        }
+    }
+}
+
+.status {
+  border-radius: 10px;
+  padding: 5px;
+  color: var(--color-white);
+  background-color: var(--color-successful);
+  &.err {
+    background-color: var(--color-err);
+  }
+}
+
+.roles {
+  display: flex;
+.role {
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 0 5px;
+  display: block;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: 10px;
+}
+}
 </style>

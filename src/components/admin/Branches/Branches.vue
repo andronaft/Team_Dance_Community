@@ -3,10 +3,10 @@
     <h1>Бранчи</h1>
 
     <div class="tabs">
-            <div class="tab" @click="setTab('Allbranches')">Все Бранчи</div>
-            <div class="tab" @click="setTab('Addbranch')">Добавить Бранч</div>
-        </div>
-           <component :is="currentComponent"/>
+      <div class="tab" :class="{active: currentComponent == 'Allbranches'}" @click="setTab('Allbranches')">Все Бранчи</div>
+      <div class="tab" :class="{active: currentComponent == 'Addbranch'}" @click="setTab('Addbranch')">Добавить Бранч</div>
+    </div>
+    <component :is="currentComponent" />
 
   </div>
 </template>
