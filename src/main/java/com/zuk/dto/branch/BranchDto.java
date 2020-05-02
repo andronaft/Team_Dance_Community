@@ -3,6 +3,7 @@ package com.zuk.dto.branch;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zuk.model.Branch;
+import com.zuk.model.Hall;
 import com.zuk.model.Status;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class BranchDto {
     private String information;
     private String contact;
     private String location;
+    //private Long hallId;
     private String imgUrl;
     private Status status;
     private Timestamp created;

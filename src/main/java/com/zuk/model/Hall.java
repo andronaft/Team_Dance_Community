@@ -4,10 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 
 @EqualsAndHashCode(callSuper = true)
@@ -31,5 +29,8 @@ public class Hall extends BaseEntity {
 
     @Column(name = "information")
     private String information;
+
+    @OneToMany(mappedBy = "branch")
+    private List<GroupTraining> groupTraining;
 
 }

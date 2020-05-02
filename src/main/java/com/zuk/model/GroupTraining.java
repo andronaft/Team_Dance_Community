@@ -18,8 +18,9 @@ public class GroupTraining extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "location")
-    private String location;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "hall_id", referencedColumnName = "id")
+    private Hall hall;
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "branch_id", referencedColumnName = "id")
