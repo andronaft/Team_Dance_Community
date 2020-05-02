@@ -10,7 +10,7 @@
 
               <h3>Групповые тренировки</h3>
   <div class="groupTrainings">
-      <table>
+      <table class="alltables">
           <tr>
               <th>Название</th>
               <th>Время</th>
@@ -99,23 +99,5 @@ h1 {
 
 }
 
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    color: #222;
-}
 
-td,
-th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-tr {
-  background-color: #818181;
-}
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
 </style>

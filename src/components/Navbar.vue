@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar" v-if="renderComponent">
       <div class="navbar__left"  v-click-outside="hideNav">
         <button class="burger" @click="toggleNav">
       <font-awesome-icon icon="hamburger" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
@@ -43,7 +43,8 @@ export default {
   data() {
     return {
     isActive: false,
-    branches: ''
+    branches: '',
+    renderComponent: true
     }
   },
   created() {
@@ -62,7 +63,20 @@ export default {
     console.log(error);
   });
     },
+    forceRerender() {
+  // Remove my-component from the DOM
+  this.renderComponent = false;
+
+  // If you like promises better you can
+  // also use nextTick this way
+  this.$nextTick().then(() => {
+    // Add the component back in
+    this.renderComponent = true;
+  });
+},
     clickNav() {
+      console.log("clicked nav")
+      this.forceRerender();
       if(this.isMobile()) {
           this.toggleNav()
       }
@@ -105,6 +119,7 @@ export default {
   top: 0;
   width: 100%;
   background: var(--color-main);
+  box-shadow: 0 2px 2px -2px var(--color-black);
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -126,8 +141,12 @@ export default {
       }
 
       a {
+        height: 60px;
+        display: block;
+        box-sizing: border-box;
         transition: all .4s ease-in-out;
         position: relative;
+
         &:hover {
           background-color: var(--color-primary-dark);
 
@@ -135,11 +154,11 @@ export default {
 
         .dropdown {
           position: absolute;
-    left: 0;
-    top: 100%;
-    display: none;
-    background: var(--color-main);
-    flex-direction: column;
+          left: 0;
+          top: 100%;
+          display: none;
+          background: var(--color-main);
+          flex-direction: column;
         }
 
       }
@@ -185,6 +204,7 @@ a.link {
       display: flex;
     }
   }
+
   .dropdown {
     display: none;
   }

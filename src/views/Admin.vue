@@ -51,9 +51,11 @@ export default {
 </script>
 <style lang="scss" scoped>
     .admin {
+        position: sticky;
+  top: 60px;
         display: grid;
         grid-template-columns: 1fr 3fr;
-        height: 100vh;
+        height: calc(100vh - 60px);
         aside {
             background-color: var(--color-black);
             //flex: 1;
