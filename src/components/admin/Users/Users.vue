@@ -2,7 +2,7 @@
   <div class="users">
     <h1>Пользователи</h1>
     <findUser @clicked="onClickChild" />
-    <table>
+    <table class="admin">
   <tr>
     <th>ID</th>
     <th>Username</th>
@@ -158,22 +158,7 @@ h1 {
     color: var(--color-black);
 
 }
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  color: #222;
-}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
 
 .editUser {
     margin: 20px;

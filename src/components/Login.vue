@@ -27,23 +27,28 @@
             <font-awesome-icon icon="user" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
         </button>
         <transition name="fade">
-        <div class="profile_dialog" :class="{active: isActive}" v-if="isActive">
-            <div class="profile_body">
-                <div class="logo">
-                       <img alt="Vue logo" src="@/assets/logo.png">
-                </div>
-                <div class="username">
-                    <router-link :to="{ name: 'Profile', params: { username: store_username }}">{{store_username}}
-                    </router-link>
-                </div>
-                <div class="logout">
-                    <button class="logoutBtn" @click="logout">Logout</button>
-                </div>
-                <div class="logout">
-                    <router-link class="logoutBtn" @click.native="toggleProfile" to="/admin">Admin</router-link>
+            <div class="profile_dialog" :class="{active: isActive}" v-if="isActive">
+                <div class="profile_body">
+                    <div class="logo">
+                        <router-link :to="{ name: 'Profile', params: { username: store_username }}"><img alt="Vue logo"
+                                src="@/assets/logo.png"></router-link>
+                    </div>
+                    <div class="username">
+                        <router-link :to="{ name: 'Profile', params: { username: store_username }}">{{store_username}}
+                        </router-link>
+                    </div>
+                    <div class="logout">
+                        <button class="logoutBtn" @click="logout">Выход</button>
+                    </div>
+                    <div class="logout" v-if="this.$store.getters.user.role.includes('ROLE_ADMIN')">
+                        <router-link class="logoutBtn" @click.native="toggleProfile" to="/admin">Админ Панель
+                        </router-link>
+                    </div>
+                    <div class="logout" v-if="this.$store.getters.user.role.includes('ROLE_TRAINER')">
+                        <router-link class="logoutBtn" @click.native="toggleProfile" to="/cabinet">Кабинет</router-link>
+                    </div>
                 </div>
             </div>
-        </div>
         </transition>
     </div>
 </div>
@@ -51,81 +56,93 @@
 
 <script>
 import store from "../store";
-import { mapGetters } from "vuex";
+import {
+    mapGetters
+} from "vuex";
 
 
 export default {
-  name: 'LoginComponent',
+    name: 'LoginComponent',
 
-  data: () => ({
-    username: 'testuser',
-    password: '13371337',
-    isActive: false
-  }),
-  computed: {
-    isLoggedIn : function(){ return this.$store.getters.isLoggedIn},
-    store_username: function(){ return this.$store.getters.user.username},
-  },
-  created() {
-      console.log("State",this.$store.state.user)
-  },
-  methods: {
-      logMeIn() {
-          console.log("Ligmein")
-          let username = this.username;
-          let password = this.password
-          this.$store.dispatch('login', { username, password })
-       .then(() => this.$router.push('/'))
-       .catch(err => console.log(err))
-      },
-      toggleProfile() {
-      console.log("toogle profile")
-      this.isActive = !this.isActive
+    data: () => ({
+        username: 'testuser',
+        password: '13371337',
+        isActive: false
+    }),
+    computed: {
+        isLoggedIn: function () {
+            return this.$store.getters.isLoggedIn
+        },
+        store_username: function () {
+            return this.$store.getters.user.username
+        },
     },
-     hideProfile() {
-      console.log("hide profile")
-      if(this.isMobile()) {
-          this.isActive = false
-      }
+    created() {
+        console.log("State", this.$store.state.user)
     },
-     logout: function () {
-        this.$store.dispatch('logout')
-        .then(() => {
-          this.$router.push('/login')
-        })
-      },
-  },
-   
+    methods: {
+        logMeIn() {
+            console.log("Ligmein")
+            let username = this.username;
+            let password = this.password
+            this.$store.dispatch('login', {
+                    username,
+                    password
+                })
+                .then(() => this.$router.push('/'))
+                .catch(err => console.log(err))
+        },
+        toggleProfile() {
+            console.log("toogle profile")
+            this.isActive = !this.isActive
+        },
+        hideProfile() {
+            console.log("hide profile")
+            if (this.isMobile()) {
+                this.isActive = false
+            }
+        },
+        logout: function () {
+            this.$store.dispatch('logout')
+                .then(() => {
+                    this.$router.push('/login')
+                })
+        },
+    },
+
 }
 </script>
 
 <style scoped lang="scss">
-
 .login_navbar {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-   .profile_dialog {
-       margin-top: 15px;
-  background-color: #fff;
-  color: var(--color-black);
-  text-align: left;
-  position: absolute;
+
+.profile_dialog {
+    margin-top: 15px;
+    background-color: #fff;
+    color: var(--color-black);
+    text-align: left;
+    position: absolute;
     left: 0;
     width: 100%;
     display: none;
 
     .profile_body {
         padding: 10px;
+
         .logo {
             display: flex;
             justify-content: center;
             align-items: center;
+
             img {
                 width: 100px;
             }
         }
+
         .username {
             a {
                 color: var(--color-dark);
@@ -134,13 +151,16 @@ export default {
             }
         }
     }
+
     &.active {
         display: block;
     }
+
     .login {
         padding: 20px;
     }
-    @include lg { 
+
+    @include lg {
 
         left: auto;
         right: 0;
@@ -148,23 +168,25 @@ export default {
     }
 }
 
-.loginBtn, .logoutBtn {
-  width: 100%;
-  margin-top: 10px;
-  background: #000;
-  color: #fff;
-  border:none;
-  cursor: pointer;
-  padding: 15px;
-  box-sizing: border-box;
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  font-size: 11px;
+.loginBtn,
+.logoutBtn {
+    width: 100%;
+    margin-top: 10px;
+    background: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 11px;
 }
 
 .profile {
     cursor: pointer;
+    padding: 10px;
     margin-right: 20px;
     text-align: left;
     position: relative;
@@ -173,8 +195,14 @@ export default {
     justify-items: flex-start;
     align-items: center;
     -webkit-appearance: none;
-border-radius: 0;
-background: none;
-border: none;
+    border-radius: 0;
+    background: none;
+    border: none;
+    transition: all .4s ease-in-out;
+
+    &:hover {
+        background-color: var(--color-black);
+        border-radius: 10px;
+    }
 }
 </style>

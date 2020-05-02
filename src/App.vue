@@ -2,7 +2,7 @@
   <div id="app">
     <navbar/>
     <main class="main">
-          <div v-if="isLoggedIn" class="alert alert-success" role="alert">You are logged in!</div>
+          <!-- <div v-if="isLoggedIn" class="alert alert-success" role="alert">You are logged in!</div> -->
          
   <!-- 123{{user}} -->
   <!-- <button @click="logout">Logout</button> -->
@@ -71,9 +71,12 @@ export default {
 <style lang="scss">
 button:focus {outline:0;}
 
-
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
 body {
-  background: #213751;
+  background: var(--color-primary-dark);
   padding: 0;
   margin: 0;
 }
@@ -81,12 +84,13 @@ main.main {
   margin-top: 60px;
 }
 #app {
+  height: 100%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
   overflow: auto;
-  color: #fff;
+  color: var(--color-white);
 }
 
 
@@ -97,7 +101,7 @@ main.main {
   border: 2px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  background-color: white;
+  background-color: var(--color-white);
   background-repeat: no-repeat;
   padding: 12px 20px 12px 20px;
 }
@@ -118,4 +122,43 @@ main.main {
     background-color: var(--color-err);
   }
 }
+
+table.admin {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    color: #222;
+    td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+}
+
+table.alltables {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    color: #222;
+    td,
+th {
+    border: 1px solid  var(--color-primary);
+    text-align: left;
+    padding: 8px;
+}
+tr {
+  background-color:  var(--color-main);
+}
+$color: #FF9F1C;
+tr:nth-child(even) {
+    background-color: darken( $color, 10% );
+}
+}
+
+
 </style>
