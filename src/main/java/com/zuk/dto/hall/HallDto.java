@@ -34,11 +34,50 @@ public class HallDto {
         return hallDto;
     }
 
+    public static HallDto fromHallToAdminDto(Hall hall){
+        HallDto hallDto = new HallDto();
+        hallDto.setId(hall.getId());
+        hallDto.setName(hall.getName());
+        hallDto.setCapacity(hall.getCapacity());
+        hallDto.setLocation(hall.getLocation());
+        hallDto.setInformation(hall.getInformation());
+        hallDto.setImgUrl(hall.getImgUrl());
+        return hallDto;
+    }
+
     public static ArrayList<HallDto> fromArrayHallToPublicDto(List<Hall> hallList){
         ArrayList<HallDto> hallDtoArrayList = new ArrayList<>();
         for(Hall hall:hallList){
             hallDtoArrayList.add(fromHallToPublicDto(hall));
         }
         return hallDtoArrayList;
+    }
+
+    public static ArrayList<HallDto> fromArrayHallToAdminDto(List<Hall> hallList){
+        ArrayList<HallDto> hallDtoArrayList = new ArrayList<>();
+        for(Hall hall:hallList){
+            hallDtoArrayList.add(fromHallToAdminDto(hall));
+        }
+        return hallDtoArrayList;
+    }
+
+
+    public Hall toHall(){
+        Hall hall = new Hall();
+        hall.setCapacity(capacity);
+        hall.setName(name);
+        hall.setLocation(location);
+        hall.setInformation(information);
+        return hall;
+    }
+
+    public Hall toHallWithId(){
+        Hall hall = new Hall();
+        hall.setId(id);
+        hall.setCapacity(capacity);
+        hall.setName(name);
+        hall.setLocation(location);
+        hall.setInformation(information);
+        return hall;
     }
 }
