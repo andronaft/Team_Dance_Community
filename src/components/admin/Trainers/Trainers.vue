@@ -1,28 +1,26 @@
 <template>
   <div class="users">
-    <h1>Тренера</h1>
-    <table class="admin">
-  <tr>
-    <th>ID</th>
-    <th>Username</th>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Email</th>
-    <th>Status</th>
-    <th>Roles</th>
-  </tr>
-  <tr v-for="user in allTrainers" v-bind:key="user.id">
-    <td>{{user.id}}</td>
-    <td>{{user.username}}</td>
-    <td>{{user.firstName}}</td>
-    <td>{{user.lastName}}</td>
-    <td>{{user.email}}</td>
-    <td>{{user.status}}</td>
-    <td>{{user.roles}}</td>
-  </tr>
-
-
-</table>
+      <h1>Тренера</h1>
+      <table class="admin">
+          <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Roles</th>
+          </tr>
+          <tr v-for="user in allTrainers" v-bind:key="user.id">
+              <td>{{user.id}}</td>
+              <td>{{user.username}}</td>
+              <td>{{user.firstName}}</td>
+              <td>{{user.lastName}}</td>
+              <td>{{user.email}}</td>
+              <td><span class="status" :class='{err: user.status == "NOT_ACTIVE"}'>{{user.status}}</span></td>
+              <td><div class="roles"><span v-for="role in user.roles" :key="role" class="role">{{ role }}</span></div></td>
+          </tr>
+      </table>
   </div>
 </template>
 

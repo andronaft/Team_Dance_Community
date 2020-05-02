@@ -2,8 +2,8 @@
   <div class="users">
       <h1>Заявки</h1>
         <div class="tabs">
-            <div class="tab" @click="setTab('Activebids')">Активные заявки</div>
-            <div class="tab" @click="setTab('Allbids')">Все заявки</div>
+            <div class="tab" :class="{active: currentComponent == 'Activebids'}" @click="setTab('Activebids')">Активные заявки</div>
+            <div class="tab" :class="{active: currentComponent == 'Allbids'}" @click="setTab('Allbids')">Все заявки</div>
         </div>
        <component :is="currentComponent"/>
   </div>
@@ -63,13 +63,5 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 
-.tabs {
-    cursor: pointer;
-    color: var(--color-white);
-    display: flex;
-    .tab {
-        background-color: var(--color-main);
-        padding: 10px;
-    }
-}
+
 </style>

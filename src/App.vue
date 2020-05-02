@@ -9,18 +9,21 @@
      <router-view :key="$route.fullPath"></router-view>
 
     </main>
+    <Footer/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 import { mapGetters } from "vuex";
 
 export default {
   name: 'Home',
   components: {
-    Navbar
+    Navbar,
+    Footer
   },
   computed: {
     isLoggedIn : function(){ return this.$store.getters.isLoggedIn},
@@ -158,6 +161,34 @@ $color: #FF9F1C;
 tr:nth-child(even) {
     background-color: darken( $color, 10% );
 }
+}
+
+
+form.form {
+  border-radius: 10px;
+  padding: 20px;
+   box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+  background: var(--color-white);
+  label {
+    display: block;
+    margin: 5px 0;
+    color: var(--color-black);
+  }
+  button {
+      width: 100%;
+  margin-top: 10px;
+  background: #000;
+  color: #fff;
+  border:none;
+  cursor: pointer;
+  padding: 15px;
+  font-size: 16px;
+      border-radius: 5px;
+transition: all .4s ease-in-out;
+  &:hover {
+    background: lighten(#011627, 10%);
+  }
+  }
 }
 
 

@@ -1,11 +1,11 @@
 <template>
 <div class="login_navbar" v-click-outside="hideProfile">
-    <div v-if="!isLoggedIn">
-        <button class="profile" @click="toggleProfile">
+    <div v-if="!isLoggedIn" v-click-outside="profileOutside">
+        <button class="profile" @click="toggleProfile" ref="toggle">
             <font-awesome-icon icon="user" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
         </button>
         <transition name="fade">
-            <div class="profile_dialog" :class="{active: isActive}" v-if="isActive">
+            <div class="profile_dialog" :class="{active: isActive}" v-if="isActive" ref="profile">
                 <form class="login" @submit.prevent="logMeIn">
                     <label>Username</label>
                     <div>
@@ -15,13 +15,13 @@
                     <div>
                         <input required v-model="password" type="password" placeholder="Password" />
                     </div>
-                    <button class="loginBtn" type="submit">Login</button>
+                    <button class="loginBtn" type="submit">Войти</button>
                     <router-link to="/registration" @click.native="toggleProfile">Регистрация</router-link>
                 </form>
             </div>
         </transition>
     </div>
-    <div class="" v-else>
+    <div class="" v-else  v-click-outside="profileOutside">
 
         <button class="profile" @click="toggleProfile">
             <font-awesome-icon icon="user" size="2x" :style="{ color: 'white' }"></font-awesome-icon>
@@ -33,8 +33,8 @@
                         <router-link :to="{ name: 'Profile', params: { username: store_username }}"><img alt="Vue logo"
                                 src="@/assets/logo.png"></router-link>
                     </div>
-                    <div class="username">
-                        <router-link :to="{ name: 'Profile', params: { username: store_username }}">{{store_username}}
+                    <div class="logout">
+                        <router-link class="logoutBtn" :to="{ name: 'Profile', params: { username: store_username }}">{{store_username}}
                         </router-link>
                     </div>
                     <div class="logout">
@@ -78,9 +78,16 @@ export default {
         },
     },
     created() {
+        
         console.log("State", this.$store.state.user)
     },
     methods: {
+
+        profileOutside() {
+            if(this.isActive) {
+                this.isActive = false
+            }
+        },
         logMeIn() {
             console.log("Ligmein")
             let username = this.username;
@@ -121,8 +128,8 @@ export default {
 }
 
 .profile_dialog {
-    margin-top: 15px;
-    background-color: #fff;
+    top:60px;
+    background-color: var(--color-white);
     color: var(--color-black);
     text-align: left;
     position: absolute;
@@ -139,6 +146,9 @@ export default {
             align-items: center;
 
             img {
+                border-radius: 50%;
+                background-color: var(--color-black);
+                height: 100px;
                 width: 100px;
             }
         }
@@ -158,21 +168,29 @@ export default {
 
     .login {
         padding: 20px;
+        a {
+            color: var(--color-dark);
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+        }
     }
 
     @include lg {
-
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
         left: auto;
         right: 0;
-        width: 200px;
+        width: 300px;
     }
 }
 
 .loginBtn,
 .logoutBtn {
+    border-radius: 5px;
     width: 100%;
     margin-top: 10px;
-    background: var(--color-black);
+    background: var(--color-primary-dark);
     color: var(--color-white);
     border: none;
     cursor: pointer;
@@ -181,7 +199,11 @@ export default {
     display: block;
     text-align: center;
     text-decoration: none;
-    font-size: 11px;
+    font-size: 16px;
+    transition: all .4s ease-in-out;
+    &:hover {
+        background: lighten(#011627, 10%);
+    }
 }
 
 .profile {
