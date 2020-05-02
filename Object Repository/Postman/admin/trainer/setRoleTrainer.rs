@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebServiceRequestEntity>
    <description></description>
-   <name>setRoleAdmin</name>
+   <name>setRoleTrainer</name>
    <tag></tag>
    <elementGuidId>ba80f2d3-048f-473b-90fd-3947ab1bfc77</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
