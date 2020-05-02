@@ -41,7 +41,7 @@ public class GroupTrainingDto {
         return groupTrainingDto;
     }
 
-    public static GroupTrainingDto fromGroupTrainingWithTrainer(GroupTraining groupTraining){
+    public static GroupTrainingDto fromGroupTrainingWithAdminTrainer(GroupTraining groupTraining){
         GroupTrainingDto groupTrainingDto = fromGroupTrainingAdmin(groupTraining);
         List<User> list =  groupTraining.getTrainer();
         List<Long> ids = new ArrayList<>();
@@ -51,6 +51,18 @@ public class GroupTrainingDto {
         groupTrainingDto.setTrainerIds(ids);
         return groupTrainingDto;
     }
+
+    public static GroupTrainingDto fromGroupTrainingWithTrainer(GroupTraining groupTraining){
+        GroupTrainingDto groupTrainingDto = fromGroupTraining(groupTraining);
+        List<User> list =  groupTraining.getTrainer();
+        List<Long> ids = new ArrayList<>();
+        for(User user:list){
+            ids.add(user.getId());
+        }
+        groupTrainingDto.setTrainerIds(ids);
+        return groupTrainingDto;
+    }
+
     public static GroupTrainingDto fromGroupTraining(GroupTraining groupTraining){
         GroupTrainingDto groupTrainingDto = new GroupTrainingDto();
         groupTrainingDto.setId(groupTraining.getId());
@@ -65,7 +77,7 @@ public class GroupTrainingDto {
     public static ArrayList<GroupTrainingDto> fromArrayGroupTraining(List<GroupTraining> groupTrainingsList){
         ArrayList<GroupTrainingDto>  groupTrainingDtoArrayList = new ArrayList<>();
         for (GroupTraining groupTraining:groupTrainingsList){
-            groupTrainingDtoArrayList.add(fromGroupTraining(groupTraining));
+            groupTrainingDtoArrayList.add(fromGroupTrainingWithTrainer(groupTraining));
         }
         return groupTrainingDtoArrayList;
     }
@@ -73,7 +85,7 @@ public class GroupTrainingDto {
     public static ArrayList<GroupTrainingDto> fromArrayGroupTrainingAdmin(List<GroupTraining> groupTrainingsList){
         ArrayList<GroupTrainingDto>  groupTrainingDtoArrayList = new ArrayList<>();
         for (GroupTraining groupTraining:groupTrainingsList){
-            groupTrainingDtoArrayList.add(fromGroupTrainingWithTrainer(groupTraining));
+            groupTrainingDtoArrayList.add(fromGroupTrainingWithAdminTrainer(groupTraining));
         }
         return groupTrainingDtoArrayList;
     }
