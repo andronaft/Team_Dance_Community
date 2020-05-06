@@ -33,6 +33,9 @@ public class GroupTrainingDto {
         groupTrainingDto.setId(groupTraining.getId());
         groupTrainingDto.setName(groupTraining.getName());
         groupTrainingDto.setBranchId(groupTraining.getBranch().getId());
+
+        groupTrainingDto.setHallId(groupTraining.getHall().getId());
+
         groupTrainingDto.setCapacity(groupTraining.getCapacity());
         groupTrainingDto.setTime(groupTraining.getTime());
         groupTrainingDto.setWeekDay(groupTraining.getWeekDay());
@@ -69,6 +72,9 @@ public class GroupTrainingDto {
         groupTrainingDto.setId(groupTraining.getId());
         groupTrainingDto.setName(groupTraining.getName());
         groupTrainingDto.setBranchId(groupTraining.getBranch().getId());
+
+        groupTrainingDto.setHallId(groupTraining.getHall().getId());
+
         groupTrainingDto.setCapacity(groupTraining.getCapacity());
         groupTrainingDto.setTime(groupTraining.getTime());
         groupTrainingDto.setWeekDay(groupTraining.getWeekDay());

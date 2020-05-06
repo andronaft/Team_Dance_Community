@@ -29,7 +29,7 @@ public class TokenControllerV1 {
     }
 
     @RequestMapping(value = "validate")
-    public ResponseEntity validate(@RequestHeader("Authorization") String token) {//TODO
+    public ResponseEntity validate(@RequestHeader("Authorization") String token) {
         Map<Object, Object> response = new HashMap<>();
         try {
             response.put("validate", jwtTokenProvider.validateToken(token.substring(7)));
