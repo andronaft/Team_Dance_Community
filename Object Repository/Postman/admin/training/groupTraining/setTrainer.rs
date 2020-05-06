@@ -9,7 +9,7 @@
    <followRedirects>false</followRedirects>
    <httpBody></httpBody>
    <httpBodyContent>{
-  &quot;text&quot;: &quot;{\n\t\&quot;id\&quot;:\&quot;17\&quot;,\n\t \&quot;trainerIds\&quot;: [\n            2,\n            1\n        ]\n}&quot;,
+  &quot;text&quot;: &quot;{\n\t\&quot;id\&quot;:\&quot;27\&quot;,\n\t \&quot;trainerIds\&quot;: [\n            2,\n       \t\t1\n        ]\n}&quot;,
   &quot;contentType&quot;: &quot;application/json&quot;,
   &quot;charset&quot;: &quot;UTF-8&quot;
 }</httpBodyContent>
@@ -26,7 +26,7 @@
       <matchCondition>equals</matchCondition>
       <name>Authorization</name>
       <type>Main</type>
-      <value>Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfVVNFUiIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNTg4Mjk3NDQ2LCJleHAiOjE1ODgzMzM0NDZ9.lds9r40Nyhhd8XBhP_DNsbKjzdmmpR_d3TKiG45gbY0</value>
+      <value>Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfVVNFUiIsIlJPTEVfQURNSU4iLCJST0xFX1RSQUlORVIiXSwiaWF0IjoxNTg4NzI1MTU5LCJleHAiOjE1ODg3NjExNTl9.SJn354WQ5MItIB3o4XmuVgPnJPKRkkDPmZ7DNBwIgIc</value>
    </httpHeaderProperties>
    <migratedVersion>5.4.1</migratedVersion>
    <restRequestMethod>POST</restRequestMethod>
