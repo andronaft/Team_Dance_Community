@@ -31,6 +31,10 @@
               <div>
                   <input id="location" type="text" v-model="status" required>
               </div>
+              <label for="location">hallId</label>
+              <div>
+                  <input id="location" type="text" v-model="hallId" required>
+              </div>
               <div>
                   <button class="addBranch" type="submit">Добавить тренировку</button>
               </div>
@@ -67,7 +71,8 @@ export default {
         location: 'Локация',
         time: "38:00:00",
         weekDay: "MONDAY",
-        status: 'ACTIVE'
+        status: 'ACTIVE',
+        hallId: ''
 
     }
   },
@@ -85,7 +90,8 @@ export default {
                         "location": this.location,
                         "time": this.time,
                         "weekDay": this.weekDay,
-                        "status": this.status
+                        "status": this.status,
+                        "hallId": this.hallId
                 }, {
                     headers: {
                         "Access-Control-Allow-Origin": "*"

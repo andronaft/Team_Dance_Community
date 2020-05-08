@@ -6,7 +6,7 @@
         <th>Name</th>
         <th>Information</th>
         <th>Contact</th>
-        <th>Location</th>
+        <th>hallId</th>
         <th>Img Url</th>
         <th>Status</th>
         <th>Created</th>
@@ -18,7 +18,7 @@
         <td>{{branch.name}}</td>
         <td>{{branch.information}}</td>
         <td>{{branch.contact}}</td>
-        <td>{{branch.location}}</td>
+        <td>{{branch.hallId}}</td>
         <td>{{branch.imgUrl}}</td>
         <td><span class="status" :class='{err: branch.status == "NOT_ACTIVE"}'>{{branch.status}}</span></td>
         <td>{{date(branch.created)}}</td>

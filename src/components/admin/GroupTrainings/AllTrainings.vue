@@ -6,7 +6,7 @@
     <th>Name</th>
     <th>branchId</th>
     <th>capacity</th>
-    <th>Location</th>
+    <th>hallId</th>
     <th>time</th>
     <th>weekDay</th>
     <th>status</th>
@@ -19,7 +19,7 @@
     <td>{{training.name}}</td>
     <td>{{training.branchId}}</td>
     <td>{{training.capacity}}</td>
-    <td>{{training.location}}</td>
+    <td>{{training.hallId}}</td>
     <td>{{training.time}}</td>
     <td>{{training.weekDay}}</td>
     <td>{{training.status}}</td>
@@ -61,6 +61,10 @@
             <div>
               <input id="location" type="text" v-model="training.status" required>
             </div>
+            <label for="location">hallId</label>
+            <div>
+              <input id="location" type="text" v-model="training.hallId" required>
+            </div>
             <div>
               <button class="editTrainig" type="submit">Редактировать</button>
             </div>
@@ -100,7 +104,8 @@ export default {
 	                    "location":this.training.location,
 	                    "time":this.training.time,
 	                    "weekDay":this.training.weekDay,
-	                    "status":this.training.status,
+                      "status":this.training.status,
+                      "hallId":this.training.hallId
                 }, {
                     headers: {
                         "Access-Control-Allow-Origin": "*"
