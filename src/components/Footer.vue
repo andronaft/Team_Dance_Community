@@ -6,8 +6,6 @@
 
 <style lang="scss" scoped>
     footer {
-        position: absolute;
-
         width: 100%;
         background-color: var(--color-main);
     }
