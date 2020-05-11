@@ -40,11 +40,11 @@
                     <div class="logout">
                         <button class="logoutBtn" @click="logout">Выход</button>
                     </div>
-                    <div class="logout" v-if="this.$store.getters.user.role.includes('ROLE_ADMIN')">
+                    <div class="logout" v-if="this.$store.getters.user && this.$store.getters.user.role.includes('ROLE_ADMIN')">
                         <router-link class="logoutBtn" @click.native="toggleProfile" to="/admin">Админ Панель
                         </router-link>
                     </div>
-                    <div class="logout" v-if="this.$store.getters.user.role.includes('ROLE_TRAINER')">
+                    <div class="logout" v-if="this.$store.getters.user && this.$store.getters.user.role.includes('ROLE_TRAINER')">
                         <router-link class="logoutBtn" @click.native="toggleProfile" to="/cabinet">Кабинет</router-link>
                     </div>
                 </div>

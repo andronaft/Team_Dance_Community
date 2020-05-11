@@ -79,13 +79,16 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    return { x:0, y:0 }
+  }
 })
 
 router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.requiresAuth)) {
     console.log("Check Role", store.getters.user.role)
-    if (store.getters.user.role.includes("ROLE_ADMIN")) {
+    if (store.getters.user !== null && store.getters.user.role.includes("ROLE_ADMIN")) {
       next()
       return
     }
@@ -93,7 +96,7 @@ router.beforeEach((to, from, next) => {
   } 
   else if(to.matched.some(record => record.meta.requiresTrainer)) {
     console.log("Check Role Trainer", store.getters.user.role)
-    if (store.getters.user.role.includes("ROLE_TRAINER")) {
+    if (store.getters.user !== null && store.getters.user.role.includes("ROLE_TRAINER")) {
       next()
       return
     }
@@ -102,6 +105,9 @@ router.beforeEach((to, from, next) => {
   else {
     next() 
   }
+  
 })
+
+
 
 export default router
