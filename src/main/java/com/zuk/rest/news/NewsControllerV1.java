@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 
 @RestController
 @RequestMapping(value = "/api/v1/news/")
-public class NewsControllerV1 {//TODO
+public class NewsControllerV1 {
 
     private final NewsService newsService;
 

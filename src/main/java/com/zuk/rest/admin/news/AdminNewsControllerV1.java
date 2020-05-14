@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/admin/news/")
-public class AdminNewsControllerV1 {//TODO update katalon
+public class AdminNewsControllerV1 {
     private final NewsService newsService;
 
 
@@ -34,14 +34,13 @@ public class AdminNewsControllerV1 {//TODO update katalon
         return new ResponseEntity<>(NewsDto.fromAdminArrayNews(newsService.findAll()), HttpStatus.OK);
     }
 
-    @PostMapping(name = "create/")
+    @PostMapping(value = "create/")
     public ResponseEntity create(@RequestBody NewsDto newsDto){
-        return new ResponseEntity<>(NewsDto.fromAdminNews(newsService.create(newsDto.toNews())), HttpStatus.OK);
+        return new ResponseEntity<>(NewsDto.fromAdminNews(newsService.create(newsDto.toNewsForCreate())), HttpStatus.OK);
     }
 
-    @PostMapping(name = "updated/")
-    public ResponseEntity updated(@RequestBody NewsDto newsDto){
-        return new ResponseEntity<>(NewsDto.fromAdminNews(newsService.create(newsDto.toNewsWithStatus())), HttpStatus.OK);
+    @PostMapping(value = "update/")
+    public ResponseEntity update(@RequestBody NewsDto newsDto){
+        return new ResponseEntity<>(NewsDto.fromAdminNews(newsService.updated(newsDto.toNewsWithStatus())), HttpStatus.OK);
     }
-
 }

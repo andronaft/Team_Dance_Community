@@ -105,6 +105,7 @@ public class TrainingDto {
         Training training = new Training();
         //training.setId(id);
         training.setName(name);
+
         Hall hall = new Hall();hall.setId(hallId);
         training.setHall(hall);
         // training.setLocation(location);
@@ -112,6 +113,15 @@ public class TrainingDto {
         training.setBranch(branch);
         training.setCapacity(capacity);
         training.setTime(time);
+
+        ArrayList<User> arrayListTrainer = new ArrayList<>();
+        for(Long id:trainerIds){
+            User user = new User();
+            user.setId(id);
+            arrayListTrainer.add(user);
+        }
+        training.setTrainer(arrayListTrainer);
+
 
         training.setStatus(status);
 

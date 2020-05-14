@@ -35,6 +35,16 @@ public class NewsDto {
         return news;
     }
 
+    public News toNewsForCreate(){
+        News news = new News();
+        //news.setId(id);
+        news.setName(name);
+        news.setDescription(description);
+        news.setText(text);
+        //news.setImgUrl(imgUrl);
+        news.setData(data);
+        return news;
+    }
     public News toNewsWithStatus(){
         News news = new News();
         news.setId(id);

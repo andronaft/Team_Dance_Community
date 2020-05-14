@@ -30,7 +30,7 @@ public class UserProfileDto {
         return userProfile;
     }
 
-    public static UserProfileDto fromUserProfile(UserProfile userProfile){//TODO nullpoint
+    public static UserProfileDto fromUserProfile(UserProfile userProfile){
         UserProfileDto userProfileDto = new UserProfileDto();
 
         userProfileDto.setUserId(userProfile.getUserId());
@@ -45,7 +45,7 @@ public class UserProfileDto {
 
     }
 
-    public static UserProfileDto fromTrainerPublicProfile(UserProfile userProfile){//TODO nullpoint
+    public static UserProfileDto fromTrainerPublicProfile(UserProfile userProfile){
         UserProfileDto userProfileDto = new UserProfileDto();
 
         userProfileDto.setSocial(userProfile.getSocial());
