@@ -13,7 +13,7 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HallDto { //TODO
+public class HallDto {
     private Long id;
     private String name;
     private String information;

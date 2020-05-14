@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 @Service
 @Slf4j
-public class AwardServiceImpl implements AwardService {//TODO add to controller
+public class AwardServiceImpl implements AwardService {
 
     private final AwardRepository awardRepository;
 

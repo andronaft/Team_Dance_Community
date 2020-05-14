@@ -33,7 +33,7 @@ public class UserProfile {
     private String about;
 
     @Column(name = "img_url")
-    private String imgUrl;//TODO htink about url and img
+    private String imgUrl;//TODO
 
     @Column(name = "rating")
     private Integer rating;
