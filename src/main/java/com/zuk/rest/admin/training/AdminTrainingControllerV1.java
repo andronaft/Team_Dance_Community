@@ -10,8 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/v2/admin/training/")
-public class AdminTrainingControllerV1 {//TODO idfk whats doing here (create/update)
+@RequestMapping(value = "/api/v1/admin/calendarTraining/")
+public class AdminTrainingControllerV1 {
 
     private final TrainingService trainingService;
 
@@ -24,7 +24,7 @@ public class AdminTrainingControllerV1 {//TODO idfk whats doing here (create/upd
     @GetMapping(value = "{id}")
     public ResponseEntity findById(@PathVariable(name = "id") Long id){
 
-        return new ResponseEntity<>(TrainingDto.fromTrainingWithTrainer (trainingService.findById(id)), HttpStatus.OK);
+        return new ResponseEntity<>(TrainingDto.fromTrainingAdminWithTrainer (trainingService.findById(id)), HttpStatus.OK);
     }
 
     @GetMapping(value = "")
@@ -43,21 +43,19 @@ public class AdminTrainingControllerV1 {//TODO idfk whats doing here (create/upd
         return new ResponseEntity<>(TrainingDto.fromArrayTrainingAdmin(trainingService.findByBranch(branchId)), HttpStatus.OK);
     }
 
-    @PostMapping(value = "created")
-    public ResponseEntity create(/*@RequestBody TrainingDto trainingDto*/){
-        System.out.println("hello");
-        TrainingDto trainingDto = new TrainingDto();
+    @PostMapping(value = "create/")
+    public ResponseEntity create(@RequestBody TrainingDto trainingDto){
         System.out.println(trainingDto.toTrainingAdmin());
-        return new ResponseEntity<>(trainingService.create(trainingDto.toTrainingAdmin()),HttpStatus.OK);
+        return new ResponseEntity<>(TrainingDto.fromTrainingAdminWithTrainer(trainingService.create(trainingDto.toTrainingAdmin())),HttpStatus.OK);
     }
 
-    @PostMapping(value = "update")
+    @PostMapping(value = "update/")
     public ResponseEntity update(@RequestBody TrainingDto trainingDto){
-        return new ResponseEntity<>(TrainingDto.fromTrainingAdmin(trainingService.update(trainingDto.toTrainingAdminWithId())),HttpStatus.OK);
+        return new ResponseEntity<>(TrainingDto.fromTrainingAdminWithTrainer(trainingService.update(trainingDto.toTrainingAdminWithId())),HttpStatus.OK);
     }
 
-    @PostMapping(value = "setTrainer")
+   /* @PostMapping(value = "setTrainer")
     public ResponseEntity setTrainer(@RequestBody TrainingDto trainingDto){
         return new ResponseEntity<>(TrainingDto.fromTrainingWithTrainer(trainingService.saveWithTrainingTrainer(trainingDto.getId(),trainingDto.getTrainerIds())),HttpStatus.OK);
-    }
+    }*/
 }
