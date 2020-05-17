@@ -26,6 +26,7 @@ public class TrainingDto {
     private Status status;
     private List<Long> trainerIds;
 
+
     private TrainingType trainingType;
 
 
@@ -48,7 +49,7 @@ public class TrainingDto {
         return trainingDto;
     }
 
-    public static TrainingDto fromTrainingWithAdminTrainer(Training training){
+    public static TrainingDto fromTrainingAdminWithTrainer(Training training){
         TrainingDto trainingDto = fromTrainingAdmin(training);
         List<User> list =  training.getTrainer();
         List<Long> ids = new ArrayList<>();
@@ -96,7 +97,7 @@ public class TrainingDto {
     public static ArrayList<TrainingDto> fromArrayTrainingAdmin(List<Training> trainingsList){
         ArrayList<TrainingDto>  trainingDtoArrayList = new ArrayList<>();
         for (Training training:trainingsList){
-            trainingDtoArrayList.add(fromTrainingWithAdminTrainer(training));
+            trainingDtoArrayList.add(fromTrainingAdminWithTrainer(training));
         }
         return trainingDtoArrayList;
     }
@@ -139,7 +140,13 @@ public class TrainingDto {
         training.setBranch(branch);
         training.setCapacity(capacity);
         training.setTime(time);
-
+        ArrayList<User> trainerList = new ArrayList<>();
+        for(Long id: trainerIds){
+            User trainer = new User();
+            trainer.setId(id);
+            trainerList.add(trainer);
+        }
+        training.setTrainer(trainerList);
         training.setStatus(status);
 
         training.setTrainingType(trainingType);
