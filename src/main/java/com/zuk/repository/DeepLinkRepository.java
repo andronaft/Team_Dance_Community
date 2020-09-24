@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface DeepLinkRepository extends JpaRepository<DeepLink, Long> {
 List<DeepLink> findAllByFrom(String from);
+List<DeepLink> findAllByFromContains(String string);
 }

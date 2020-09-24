@@ -41,4 +41,13 @@ public class DeepLinkRestV1 {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("getbyfromconsist")
+    public ResponseEntity getByFromConsist(@RequestParam String string){
+        Map<Object, Object> response = new HashMap<>();
+
+        response.put("deepSave", deepLinkService.findAllByFromConsist(string));
+
+        return ResponseEntity.ok(response);
+    }
 }

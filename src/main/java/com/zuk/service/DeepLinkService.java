@@ -8,4 +8,5 @@ public interface DeepLinkService {
     ArrayList<DeepLink> findAll();
     ArrayList<DeepLink> findAllByFrom(String from);
     DeepLink save(DeepLink deepLink);
+    ArrayList<DeepLink> findAllByFromConsist(String string);
 }
