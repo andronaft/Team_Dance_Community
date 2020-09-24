@@ -37,4 +37,9 @@ public class DeepLinkServiceImpl implements DeepLinkService {
         deepLink.setStatus(Status.ACTIVE);
         return deepLinkRepository.save(deepLink);
     }
+
+    @Override
+    public ArrayList<DeepLink> findAllByFromConsist(String string) {
+        return (ArrayList<DeepLink>) deepLinkRepository.findAllByFromContains(string);
+    }
 }
