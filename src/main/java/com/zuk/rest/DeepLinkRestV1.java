@@ -32,6 +32,19 @@ public class DeepLinkRestV1 {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("saveget")
+    public ResponseEntity saveget(@RequestParam String from,@RequestParam String url_webview){
+        Map<Object, Object> response = new HashMap<>();
+        DeepDto deepDto = new DeepDto();
+        deepDto.setFrom(from);
+        deepDto.setUrl_webview(url_webview);
+
+        DeepLink deepLink = deepDto.ToDeep();
+        response.put("deepSave", deepLinkService.save(deepLink));
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("getall")
     public ResponseEntity getAll(){
 
