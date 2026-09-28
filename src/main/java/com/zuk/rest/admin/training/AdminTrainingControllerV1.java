@@ -45,7 +45,6 @@ public class AdminTrainingControllerV1 {
 
     @PostMapping(value = "create/")
     public ResponseEntity create(@RequestBody TrainingDto trainingDto){
-        System.out.println(trainingDto.toTrainingAdmin());
         return new ResponseEntity<>(TrainingDto.fromTrainingAdminWithTrainer(trainingService.create(trainingDto.toTrainingAdmin())),HttpStatus.OK);
     }
 

@@ -1,6 +1,7 @@
 package com.zuk.model;
 
 import lombok.Data;
+import lombok.ToString;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -18,6 +19,8 @@ public class Role extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<User> users;
 

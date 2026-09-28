@@ -25,7 +25,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     public UserProfile findById(long id) {
-        return userProfileRepository.getOne(id);
+        return userProfileRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -46,7 +46,6 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     public Boolean checkMobile(String mobile) {
-        System.out.println(mobile);
         return (userProfileRepository.findByMobile(mobile) != null);
     }
 }

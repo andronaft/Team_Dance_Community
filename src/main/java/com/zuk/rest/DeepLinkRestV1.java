@@ -24,8 +24,6 @@ public class DeepLinkRestV1 {
     public ResponseEntity save(@RequestBody DeepDto deepDto){
 
         Map<Object, Object> response = new HashMap<>();
-        System.out.println(deepDto.getFrom() + deepDto.getUrl_webview());
-        System.out.println(deepDto.ToDeep().toString());
         DeepLink deepLink = deepDto.ToDeep();
         response.put("deepSave", deepLinkService.save(deepLink));
 

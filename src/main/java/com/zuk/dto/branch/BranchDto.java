@@ -35,9 +35,7 @@ public class BranchDto {
     }
     public Branch toBrunchWithId(){
         Branch branch = new Branch();
-        System.out.println("set id");
         branch.setId(id);
-        System.out.println("done"+ branch.getId());
         branch.setName(name);
         branch.setInformation(information);
         branch.setContact(contact);

@@ -67,7 +67,6 @@ public class GroupTrainingServiceImpl implements GroupTrainingService {
         ArrayList<User> trainerList = new ArrayList<>();
 
         for (Long idTrainer:trainerIds){
-            System.out.println(idTrainer);
             trainerList.add(userService.findById(idTrainer));
         }
 

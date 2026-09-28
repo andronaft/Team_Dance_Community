@@ -3,6 +3,7 @@ package com.zuk.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.ToString;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,8 @@ public class Branch extends BaseEntity  implements Serializable {
     @Column(name = "img_url")
     private String imgUrl;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "branch")
     private List<GroupTraining> groupTraining;
 }

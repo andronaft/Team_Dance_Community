@@ -3,6 +3,7 @@ package com.zuk.dto.auth;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zuk.model.User;
 import lombok.Data;
+import lombok.ToString;
 
 
 
@@ -14,6 +15,7 @@ public class RegisterUserDto {
     private String username;
     private String firstName;
     private String lastName;
+    @ToString.Exclude
     private String password;
     private String email;
 

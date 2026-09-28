@@ -1,10 +1,12 @@
 package com.zuk.dto.admin;
 
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zuk.model.Role;
 import com.zuk.model.Status;
 import com.zuk.model.User;
-import com.zuk.security.JwtTokenProvider;
+import com.zuk.model.Role;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,7 +40,6 @@ public class AdminUserWithRoleDto {
     }
 
     public static AdminUserWithRoleDto fromUser(User user) {
-        JwtTokenProvider jwtTokenProvider = new JwtTokenProvider();
         AdminUserWithRoleDto adminUserWithRoleDto = new AdminUserWithRoleDto();
         adminUserWithRoleDto.setId(user.getId());
         adminUserWithRoleDto.setUsername(user.getUsername());
@@ -46,7 +47,7 @@ public class AdminUserWithRoleDto {
         adminUserWithRoleDto.setLastName(user.getLastName());
         adminUserWithRoleDto.setEmail(user.getEmail());
         adminUserWithRoleDto.setStatus(user.getStatus().name());
-        adminUserWithRoleDto.setRoles(jwtTokenProvider.getRoleNames(user.getRoles()));
+        adminUserWithRoleDto.setRoles(user.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
         return adminUserWithRoleDto;
     }
     public static ArrayList<AdminUserWithRoleDto> fromArrayUser(List<User> userList){

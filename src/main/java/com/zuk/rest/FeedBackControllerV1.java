@@ -24,8 +24,7 @@ public class FeedBackControllerV1 {
     @PostMapping("apply")
     public ResponseEntity<FeedBackDto> apply(@RequestBody FeedBackDto feedBackDto){
         Feedback feedback = feedBackService.apply(feedBackDto.toFeedback());
-        System.out.println(feedback.toString());
-        if(feedback == null){
+        if (feedback == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         FeedBackDto result = FeedBackDto.fromFeedback(feedback);

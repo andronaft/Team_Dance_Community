@@ -46,7 +46,6 @@ public class AdminBranchControllerV1 {
 
     @GetMapping(value = "{id}" )
     public ResponseEntity findById(@PathVariable(name = "id") long id){
-        System.out.println("good");
         return new ResponseEntity<>(branchService.findById((long) id), HttpStatus.OK);
     }
 }

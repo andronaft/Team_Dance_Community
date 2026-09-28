@@ -1,6 +1,7 @@
 package com.zuk.model;
 
 import lombok.Data;
+import lombok.ToString;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -30,12 +31,16 @@ public class User extends BaseEntity {
     @Column(name = "password")
     private String password;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(schema = "tdcbd" ,name = "user_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(schema = "tdcbd" ,name = "group_training_trainer",
             joinColumns = {@JoinColumn(name = "trainer_id", referencedColumnName = "id")},

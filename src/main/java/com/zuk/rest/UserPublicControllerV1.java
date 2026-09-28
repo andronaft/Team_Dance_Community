@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping(value = "/api/v1/userPublic/")
@@ -41,7 +42,7 @@ public class UserPublicControllerV1 {
     @GetMapping("findAllPublicByUserId/")
     public ResponseEntity findAllPublicByUserId(@RequestParam Long id ){
 
-        User user = userService.findById(id);
+        User user = findUser(id);
         UserProfile userProfile = userProfileService.findById(id);
         Map<Object, Object> response = new HashMap<>();
 
@@ -49,26 +50,32 @@ public class UserPublicControllerV1 {
             response.put("role",jwtTokenProvider.getRoleNames(user.getRoles()));
         }
         response.put("user", UserDto.fromTrainerToPublicDto(user));
-        response.put("profile", UserProfileDto.fromTrainerPublicProfile(userProfile));
+        response.put("profile", userProfile == null ? null : UserProfileDto.fromTrainerPublicProfile(userProfile));
         response.put("award",AwardDto.fromArrayAward(awardService.findByUser(user)));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("findById/")
     public ResponseEntity findById(@RequestParam Long id ){
-        User user = userService.findById(id);
+        User user = findUser(id);
         UserProfile userProfile = userProfileService.findById(id);
         Map<Object, Object> response = new HashMap<>();
         response.put("user", UserDto.fromTrainerToPublicDto(user));
-        response.put("profile", UserProfileDto.fromTrainerPublicProfile(userProfile));
+        response.put("profile", userProfile == null ? null : UserProfileDto.fromTrainerPublicProfile(userProfile));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("findAwardByUser/")
     public ResponseEntity findAwardByUser(@RequestParam Long id ){
-        User user = userService.findById(id);
+        User user = findUser(id);
         return new ResponseEntity<>(AwardDto.fromArrayAward(awardService.findByUser(user)), HttpStatus.OK);
     }
 
-
+    private User findUser(Long id) {
+        User user = userService.findById(id);
+        if (user == null) {
+            throw new NoSuchElementException("User " + id + " not found");
+        }
+        return user;
+    }
 }

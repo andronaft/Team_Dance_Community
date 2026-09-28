@@ -44,7 +44,6 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public Branch update(Branch branch) {
-        System.out.println("update " + branch);
         Branch branchFind = findById(branch.getId());
 
         branch.setCreated(branchFind.getCreated());

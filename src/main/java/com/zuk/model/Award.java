@@ -2,6 +2,7 @@ package com.zuk.model;
 
 
 import lombok.Data;
+import lombok.ToString;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -24,6 +25,8 @@ public class Award extends BaseEntity{
     @Column(name = "description")
     private String description;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(schema = "tdcbd" ,name = "award_user",
             joinColumns = {@JoinColumn(name = "award_id", referencedColumnName = "id")},

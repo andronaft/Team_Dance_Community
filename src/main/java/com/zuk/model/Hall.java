@@ -1,6 +1,7 @@
 package com.zuk.model;
 
 import lombok.Data;
+import lombok.ToString;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -30,7 +31,9 @@ public class Hall extends BaseEntity {
     @Column(name = "information")
     private String information;
 
-    @OneToMany(mappedBy = "branch")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "hall")
     private List<GroupTraining> groupTraining;
 
 }

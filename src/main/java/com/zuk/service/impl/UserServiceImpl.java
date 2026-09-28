@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +111,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User activateUser(Long id) {
         UserProfile userProfile = userProfileService.findById(id);
         if(userProfile == null){
@@ -117,24 +119,27 @@ public class UserServiceImpl implements UserService {
         }
         userProfile.setStatus(Status.ACTIVE);
         userProfileService.update(userProfile);
-        User user = userRepository.getOne(id);
+        User user = userRepository.findById(id).orElseThrow();
         user.setStatus(Status.ACTIVE);
         return userRepository.save(user);
     }
 
     @Override
+    @Transactional
     public User updatePassword(String password,Long id) {
-        User user = userRepository.getOne(id);
+        User user = userRepository.findById(id).orElseThrow();
         user.setPassword(passwordEncoder.encode(password));
         return userRepository.save(user);
     }
 
     @Override
+    @Transactional
     public User setRoleTrainer(Long id) {
-        User user = userRepository.getOne(id);
+        User user = userRepository.findById(id).orElseThrow();
         List<Role> list = user.getRoles();
-        if(!list.contains(roleRepository.findByName("ROLE_TRAINER"))) {
-            list.add(roleRepository.findByName("ROLE_TRAINER"));
+        Role trainer = roleRepository.findByName("ROLE_TRAINER");
+        if (list.stream().noneMatch(role -> role.getId().equals(trainer.getId()))) {
+            list.add(trainer);
         }
         user.setRoles(list);
         return userRepository.save(user);
@@ -151,10 +156,7 @@ public class UserServiceImpl implements UserService {
         ArrayList<User> list = new ArrayList<>();
 
         try{
-            User userById = userRepository.getOne(Long.valueOf(string));
-            if(userById != null){
-                list.add(userById);
-            }
+            userRepository.findById(Long.valueOf(string)).ifPresent(list::add);
         }catch (Exception e){
 
         }

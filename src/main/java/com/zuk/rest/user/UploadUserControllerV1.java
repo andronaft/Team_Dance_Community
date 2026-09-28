@@ -1,56 +1,78 @@
 package com.zuk.rest.user;
 
-
+import com.zuk.model.User;
+import com.zuk.model.UserProfile;
+import com.zuk.service.UserProfileService;
+import com.zuk.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.security.Principal;
+import java.util.Map;
+import java.util.UUID;
 
+/**
+ * Uploads the current user's profile photo. The file name is generated on the server,
+ * so a crafted name like "../../etc/passwd" can't write outside the upload directory.
+ */
 @RestController
 @RequestMapping(value = "/api/v1/users/upload/")
 public class UploadUserControllerV1 {
 
-    //Save the uploaded file to this folder
-    private static String UPLOADED__FOLDER = "C://Users//andro//Desktop//photoTdc//";
+    private static final Map<String, String> ALLOWED_TYPES = Map.of(
+            "image/jpeg", ".jpg",
+            "image/png", ".png",
+            "image/webp", ".webp");
 
-    @GetMapping("/")
-    public String index() {
-        return "upload";
+    private final Path uploadDir;
+    private final UserService userService;
+    private final UserProfileService userProfileService;
+
+    public UploadUserControllerV1(@Value("${app.upload.dir}") String uploadDir,
+                                  UserService userService,
+                                  UserProfileService userProfileService) {
+        this.uploadDir = Path.of(uploadDir).toAbsolutePath().normalize();
+        this.userService = userService;
+        this.userProfileService = userProfileService;
     }
 
-    @PostMapping("upload/")////new annotation since 4.3
-    public String singleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
-
+    @PostMapping("upload/")
+    public ResponseEntity<Map<String, String>> singleFileUpload(@RequestParam("file") MultipartFile file, Principal principal) {
         if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return "redirect:uploadStatus";
+            throw new IllegalArgumentException("Please select a file to upload");
+        }
+        String extension = ALLOWED_TYPES.get(file.getContentType());
+        if (extension == null) {
+            throw new IllegalArgumentException("Only JPEG, PNG and WebP images are allowed");
         }
 
-        try {
+        User user = userService.findByUsername(principal.getName());
+        String fileName = user.getId() + "-" + UUID.randomUUID() + extension;
+        Path target = uploadDir.resolve(fileName).normalize();
+        if (!target.startsWith(uploadDir)) {
+            throw new IllegalArgumentException("Invalid file name");
+        }
 
-            //Get the file and save it somewhere
-            byte[]bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED__FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
-
-            redirectAttributes.addFlashAttribute("message",
-                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
-
+        try (InputStream in = file.getInputStream()) {
+            Files.createDirectories(uploadDir);
+            Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new UncheckedIOException("Could not store the file", e);
         }
 
-        return "redirect:/uploadStatus";
+        UserProfile userProfile = userProfileService.findById(user.getId());
+        if (userProfile != null) {
+            userProfile.setImgUrl(fileName);
+            userProfileService.update(userProfile);
+        }
+        return ResponseEntity.ok(Map.of("message", "File uploaded", "img_url", fileName));
     }
-
-    @GetMapping("/uploadStatus")
-    public String uploadStatus() {
-        return "uploadStatus";
-    }
-
 }

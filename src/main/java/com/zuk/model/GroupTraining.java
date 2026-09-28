@@ -1,6 +1,7 @@
 package com.zuk.model;
 
 import lombok.Data;
+import lombok.ToString;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -18,10 +19,14 @@ public class GroupTraining extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "hall_id", referencedColumnName = "id")
     private Hall hall;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "branch_id", referencedColumnName = "id")
     private Branch branch;
@@ -36,6 +41,8 @@ public class GroupTraining extends BaseEntity {
     @Column(name = "week_day")
     private WeekDay weekDay;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(schema = "tdcbd" ,name = "group_training_trainer",
             joinColumns = {@JoinColumn(name = "group_training_id", referencedColumnName = "id")},
