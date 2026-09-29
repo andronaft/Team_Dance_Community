@@ -17,8 +17,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           # node-sass 4.13 from yarn.lock has prebuilt binaries only up to Node 12
           node-version: 12
@@ -27,7 +27,7 @@ jobs:
         run: yarn install --frozen-lockfile --non-interactive
       - name: Build
         run: yarn build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
