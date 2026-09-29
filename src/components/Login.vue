@@ -65,8 +65,8 @@ export default {
     name: 'LoginComponent',
 
     data: () => ({
-        username: 'testuser',
-        password: '***REMOVED***',
+        username: '',
+        password: '',
         isActive: false
     }),
     computed: {
