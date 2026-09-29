@@ -14,3 +14,5 @@ build
 .classpath
 
 .project
+# Katalon TestOps login token, recreated locally by Katalon Studio
+settings/internal/com.kms.katalon.integration.analytics.properties
