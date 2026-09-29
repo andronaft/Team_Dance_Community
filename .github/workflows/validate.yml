@@ -17,7 +17,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install xmllint
         run: sudo apt-get update -q && sudo apt-get install -yq libxml2-utils
       - name: Check that Katalon project files are well-formed XML
