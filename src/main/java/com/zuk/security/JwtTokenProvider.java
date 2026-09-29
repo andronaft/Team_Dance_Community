@@ -1,11 +1,9 @@
 package com.zuk.security;
 
 import com.zuk.model.Role;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,23 +40,21 @@ public class JwtTokenProvider {
                     + MIN_SECRET_BYTES + " bytes long for HS256");
         }
         this.key = Keys.hmacShaKeyFor(secretBytes);
-        this.parser = Jwts.parserBuilder().setSigningKey(key).build();
+        this.parser = Jwts.parser().verifyWith(key).build();
         this.validityInMilliseconds = validityInMilliseconds;
         this.userDetailsService = userDetailsService;
     }
 
     public String createToken(String username, List<Role> roles) {
-        Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", getRoleNames(roles));
-
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(validity)
-                .signWith(key, SignatureAlgorithm.HS256)
+                .subject(username)
+                .claim("roles", getRoleNames(roles))
+                .issuedAt(now)
+                .expiration(validity)
+                .signWith(key, Jwts.SIG.HS256)
                 .compact();
     }
 
@@ -68,7 +64,7 @@ public class JwtTokenProvider {
     }
 
     public String getUsername(String token) {
-        return parser.parseClaimsJws(token).getBody().getSubject();
+        return parser.parseSignedClaims(token).getPayload().getSubject();
     }
 
     public String resolveToken(HttpServletRequest req) {
@@ -94,7 +90,7 @@ public class JwtTokenProvider {
             return false;
         }
         try {
-            parser.parseClaimsJws(token);
+            parser.parseSignedClaims(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
